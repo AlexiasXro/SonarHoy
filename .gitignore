@@ -205,7 +205,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-##NODE
+##NODE______________________________________________________
 # Logs
 logs
 *.log
