@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="{{ title }}">
+    </form>
+    {% for enlace in extra_links %}
+        <a href="{% url enlace.route %}">{{ enlace.name }}</a>
+    {% endfor %}
+{% endblock %}

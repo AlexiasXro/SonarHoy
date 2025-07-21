@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<p>Bienvenido, {{ request.user.username }}!</p>
+<form action="{% url 'user:logout' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Cerrar sesión">
+</form>
+{% endblock %}
