@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+@tailwind utilities;
+
 @layer components {
     form > div {
         @apply mb-4;
     }
 }
-/* aqui van los estilos generales para todos los formularios */
+
+/* Estilos generales para todos los formularios */

@@ -1,13 +1,186 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <form action="." method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="{{ title }}">
+<style>
+  @keyframes wave {
+    0%, 100% { height: 1rem; }
+    50% { height: 2rem; }
+  }
+  .wave-bar {
+    width: 4px;
+    background-color: #4f46e5;
+    border-radius: 2px;
+    animation: wave 1s infinite ease-in-out;
+    display: inline-block;
+    margin: 0 2px;
+  }
+  .wave-delay-0   { animation-delay: 0s; }
+  .wave-delay-100 { animation-delay: 0.1s; }
+  .wave-delay-200 { animation-delay: 0.2s; }
+  .wave-delay-300 { animation-delay: 0.3s; }
+  .wave-delay-400 { animation-delay: 0.4s; }
+
+  /* Quitamos la animación del botón */
+  /* .button-beat {
+    animation: beat 2.5s infinite;
+    display: inline-block;
+    will-change: transform;
+  } */
+
+  .form-window {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 2rem auto;
+    overflow: hidden;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.375rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 1rem;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+  }
+
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #374151;
+  }
+
+  .error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+</style>
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+  <div class="form-window p-6">
+
+    <!-- Onda musical animada encima del título -->
+    <div class="flex justify-center items-center mb-2">
+      <div class="wave-bar wave-delay-0"></div>
+      <div class="wave-bar wave-delay-100"></div>
+      <div class="wave-bar wave-delay-200"></div>
+      <div class="wave-bar wave-delay-300"></div>
+      <div class="wave-bar wave-delay-400"></div>
+    </div>
+
+    <!-- Título -->
+    <h1 class="text-4xl font-extrabold mb-6 text-center text-indigo-700">{{ title }}</h1>
+
+    <!-- Formulario -->
+    <form action="." method="post" class="space-y-6 overflow-hidden">
+      {% csrf_token %}
+
+      {% if form.username %}
+      <div>
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+          <p class="error-message">{{ form.username.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if form.email %}
+      <div>
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        {% if form.email.errors %}
+          <p class="error-message">{{ form.email.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if form.password %}
+      <div>
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        {% if form.password.errors %}
+          <p class="error-message">{{ form.password.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if form.password1 %}
+      <div>
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+          <ul class="error-message list-disc list-inside">
+            {% for error in form.password1.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if form.password2 %}
+      <div>
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+          <p class="error-message">{{ form.password2.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="h-12 relative">
+        <input type="submit" value="{{ title }}" class="absolute inset-0 w-full h-full bg-indigo-700 text-white rounded hover:bg-indigo-900 cursor-pointer">
+      </div>
     </form>
-    {% for enlace in extra_links %}
-        <a href="{% url enlace.route %}">{{ enlace.name }}</a>
-    {% endfor %}
+
+    {% if title == "Iniciar sesión" %}
+    <div class="mt-4 text-center">
+      <p class="text-sm text-gray-700">
+        ¿No tenés cuenta?
+        <a href="{% url 'user:register' %}" class="text-blue-600 hover:underline font-semibold">Crear cuenta</a>
+      </p>
+    </div>
+    {% endif %}
+
+    <div class="mt-6 space-y-4">
+      <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
+        <img src="/static/icons/google.svg" alt="Google" class="w-5 h-5">
+        <span>Iniciar sesión con Google</span>
+      </button>
+
+      <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
+        <img src="/static/icons/facebook.svg" alt="Facebook" class="w-5 h-5">
+        <span>Iniciar sesión con Facebook</span>
+      </button>
+    </div>
+
+    {% if form_submitted and form_has_errors %}
+    <div class="mt-6 text-center">
+      <p class="text-red-600 text-sm mb-2">¿Tuvistes un problema? Probá alguna de estas opciones:</p>
+      <div class="flex flex-col items-center space-y-3">
+        {% for enlace in extra_links %}
+          <a href="{% url enlace.route %}" class="text-blue-600 hover:underline text-sm">{{ enlace.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
