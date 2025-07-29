@@ -27,6 +27,13 @@ class UserCreateView(generic.CreateView):
     }
     success_url = reverse_lazy('user:login')
 
+class UserCreateDoneView(generic.TemplateView):
+    template_name = 'estado.html'
+    extra_context = {
+        'title': 'Cuenta creada',
+        'message': 'Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión.',
+    }
+
 class ProfileView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'user/profile.html'
 
@@ -38,7 +45,7 @@ class PasswordChangeView(auth_views.PasswordChangeView):
     success_url = reverse_lazy('user:password_change_done')
 
 class PasswordChangeDoneView(auth_views.PasswordChangeDoneView):
-    template_name = 'user/estado.html'
+    template_name = 'estado.html'
     extra_context = {
         'title': 'Contraseña cambiada',
         'message': 'Tu contraseña ha sido cambiada exitosamente.',

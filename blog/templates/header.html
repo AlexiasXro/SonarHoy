@@ -1,0 +1,72 @@
+{% load static %}
+
+<!-- Banner grande -->
+  <section class="w-full h-24 md:h-32 bg-[#93278f] flex justify-center items-center">
+    <img src="{% static 'img/Marca_1.png' %}" alt="Banner" class="h-20 md:h-24 object-contain" />
+  </section>
+
+  <!-- Redes sociales -->
+  <div class="w-full bg-[#93278f] py-1 px-4">
+    <div class="max-w-7xl mx-auto flex justify-start gap-4">
+      <a href="#"><img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-8 h-8" /></a>
+      <a href="#"><img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-8 h-8" /></a>
+      <a href="#"><img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-8 h-8" /></a>
+      <a href="#"><img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-8 h-8" /></a>
+    </div>
+  </div>
+ 
+ 
+  <header class="bg-gray-300 dark:bg-gray-900 shadow">
+    <div class="max-w-7xl mx-auto relative flex items-center justify-between px-4 py-3">
+
+      <!-- Control de modo oscuro y barra de búsqueda -->
+      <div class="flex items-center gap-2 relative z-10">
+        <label class="toggle text-base-content cursor-pointer flex items-center gap-1" title="Modo oscuro">
+          <input id="darkCheckbox" type="checkbox" class="theme-controller" />
+          <!-- Ícono sol -->
+          <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <!-- Ícono luna -->
+          <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </label>
+
+        <!-- Barra de búsqueda -->
+        <input type="text" placeholder="Buscar..." class="rounded border px-2 py-1 text-sm w-48 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+      </div>
+
+      <!-- Navegación principal -->
+      <nav class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="inline-flex items-center space-x-2 text-center">
+          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Noticias</a>
+          <span class="text-gray-300">|</span>
+          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Agenda</a>
+          <span class="text-gray-300">|</span>
+          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Contacto</a>
+          <span class="text-gray-300">|</span>
+          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Quienes somos</a>
+        </div>
+      </nav>
+
+      <!-- Botón de acceso (login o registrarse) y avatar -->
+      <div class="flex items-center gap-2">
+        {% if title == "Iniciar sesión" %}
+          <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
+        {% else %}
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Inicia Sesión</a>
+        {% endif %}
+        <img src="/static/icons/user-profile.png" alt="Avatar" class="w-8 h-8 object-cover rounded-full" />
+      </div>
+      
+    </div>
+  </header>

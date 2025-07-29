@@ -1,178 +1,16 @@
-<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SonarHoy - {{ title }}</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Activar modo oscuro con la clase 'dark'
-    tailwind.config = {
-      darkMode: 'class',
-    }
-  </script>
 
-  <style>
-    /* Estilos para los inputs dentro de formularios */
-    form input[type="text"],
-    form input[type="password"],
-    form input[type="email"] {
-      margin-top: 0.25rem;
-      padding: 0.5rem;
-      display: block;
-      width: 100%;
-      border-radius: 0.375rem;
-      border: 2px solid #6366f1;
-      background-color: #fff;
-      color: #111827;
-      transition-property: border-color, box-shadow;
-      transition-duration: 150ms;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: none;
-    }
-    /* Modo oscuro */
-    html.dark form input[type="text"],
-    html.dark form input[type="password"],
-    html.dark form input[type="email"] {
-      background-color: #374151;
-      border-color: #4f46e5;
-      color: #fff;
-    }
-    /* Estilos de los inputs */
-    form input[type="text"]:focus,
-    form input[type="password"]:focus,
-    form input[type="email"]:focus {
-      outline: none;
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
-      background-color: #fff;
-      color: #111827;
-    }
-    html.dark form input[type="text"]:focus,
-    html.dark form input[type="password"]:focus,
-    html.dark form input[type="email"]:focus {
-      background-color: #374151;
-      color: #fff;
-    }
+{% extends 'layout.html' %}
 
-    /* Estilos para el toggle del modo oscuro */
-    label.toggle {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-      gap: 0.5rem;
-      user-select: none;
-    }
-
-    /* Oculta el checkbox original */
-    label.toggle input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    /* Muestra ícono sol cuando el toggle NO está activo */
-    label.toggle svg[aria-label="sun"] {
-      display: inline-block;
-    }
-    /* Oculta ícono de luna cuando el toggle NO está activo */
-    label.toggle svg[aria-label="moon"] {
-      display: none;
-    }
-    /* Cambia íconos cuando el toggle está activo */
-    label.toggle input[type="checkbox"]:checked ~ svg[aria-label="sun"] {
-      display: none;
-    }
-    label.toggle input[type="checkbox"]:checked ~ svg[aria-label="moon"] {
-      display: inline-block;
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white transition-colors duration-500">
-
-  <!-- Banner principal -->
-  <section class="w-full h-24 md:h-32 bg-[#93278f] flex justify-center items-center">
-    <img src="/static/img/Marca_1.png" alt="Banner" class="h-20 md:h-24 object-contain" />
-  </section>
-  
-  <!-- Barra superior con íconos de redes sociales -->
-  <div class="w-full bg-[#93278f] py-1 px-4">
-    <div class="max-w-7xl mx-auto flex justify-start gap-4">
-      <a href="#"><img src="/static/icons/boton_ig.png" alt="Instagram" class="w-8 h-8" /></a>
-      <a href="#"><img src="/static/icons/boton_x.png" alt="X/Twitter" class="w-8 h-8" /></a>
-      <a href="#"><img src="/static/icons/boton_yt.png" alt="YouTube" class="w-8 h-8" /></a>
-      <a href="#"><img src="/static/icons/boton_tiktok.png" alt="TikTok" class="w-8 h-8" /></a>
-    </div>
-  </div>
-
-  <!-- Encabezado principal con navegación -->
-  <header class="bg-gray-300 dark:bg-gray-900 shadow">
-    <div class="max-w-7xl mx-auto relative flex items-center justify-between px-4 py-3">
-
-      <!-- Control de modo oscuro y barra de búsqueda -->
-      <div class="flex items-center gap-2 relative z-10">
-        <label class="toggle text-base-content cursor-pointer flex items-center gap-1" title="Modo oscuro">
-          <input id="darkCheckbox" type="checkbox" class="theme-controller" />
-          <!-- Ícono sol -->
-          <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2"></path>
-            <path d="M12 20v2"></path>
-            <path d="m4.93 4.93 1.41 1.41"></path>
-            <path d="m17.66 17.66 1.41 1.41"></path>
-            <path d="M2 12h2"></path>
-            <path d="M20 12h2"></path>
-            <path d="m6.34 17.66-1.41 1.41"></path>
-            <path d="m19.07 4.93-1.41 1.41"></path>
-          </svg>
-          <!-- Ícono luna -->
-          <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-          </svg>
-        </label>
-
-        <!-- Barra de búsqueda -->
-        <input type="text" placeholder="Buscar..." class="rounded border px-2 py-1 text-sm w-48 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-      </div>
-
-      <!-- Navegación principal -->
-      <nav class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div class="inline-flex items-center space-x-2 text-center">
-          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Noticias</a>
-          <span class="text-gray-300">|</span>
-          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Agenda</a>
-          <span class="text-gray-300">|</span>
-          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Contacto</a>
-          <span class="text-gray-300">|</span>
-          <a href="#" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Quienes somos</a>
-        </div>
-      </nav>
-
-      <!-- Botón de acceso (login o registrarse) y avatar -->
-      <div class="flex items-center gap-2">
-        {% if title == "Iniciar sesión" %}
-          <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
-        {% else %}
-          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Inicia Sesión</a>
-        {% endif %}
-        <img src="/static/icons/user-profile.png" alt="Avatar" class="w-8 h-8 object-cover rounded-full" />
-      </div>
-      
-    </div>
-  </header>
 
   <!-- Sección principal de login o registro -->
-  <main class="flex flex-col items-center justify-center px-4 py-16 min-h-[70vh] max-w-md mx-auto">
-
+  {% block content %}
     <!-- Título de la página (Iniciar sesión o Registrarse) -->
     <h2 class="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-8 drop-shadow select-none">{{ title }}</h2>
 
     <!-- Contenedor del formulario -->
     <div class="w-full bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg z-20 border-2 border-indigo-600">
 
-      {% block content %}
+     
       <!-- Formulario de login o registro -->
       <form action="." method="post" class="space-y-6 overflow-hidden">
         {% csrf_token %}
@@ -277,75 +115,8 @@
       {% endif %}
       {% endblock %}
     </div>
-  </main>
-
-  <!-- Footer con redes sociales, enlaces y derechos reservados -->
-  <footer class="bg-[#4d4d4d] text-white mt-20">
-    <div class="max-w-7xl mx-auto py-6 px-4 grid grid-cols-3 gap-4 text-sm">
-      <!-- Íconos de redes sociales -->
-      <div class="flex items-center gap-3">
-        <a href="#"><img src="/static/icons/boton_ig.png" alt="Instagram" class="w-8 h-8" /></a>
-        <a href="#"><img src="/static/icons/boton_x.png" alt="X/Twitter" class="w-8 h-8" /></a>
-        <a href="#"><img src="/static/icons/boton_yt.png" alt="YouTube" class="w-8 h-8" /></a>
-        <a href="#"><img src="/static/icons/boton_tiktok.png" alt="TikTok" class="w-8 h-8" /></a>
-      </div>      
-      <!-- Enlaces rápidos -->
-      <div class="grid grid-cols-2 gap-2">
-        <div>
-          <p>• Noticias</p>
-          <p>• Agenda</p>
-        </div>
-        <div>
-          <p>• Contacto</p>
-          <p>• Quienes somos</p>
-        </div>
-      </div>
-      <!-- Logo y derechos -->
-      <div class="text-right flex flex-col items-end justify-center">
-        <img src="/static/img/sh.png" alt="Logo Sonar Hoy" class="w-16 h-auto" />
-        <p class="text-xs mt-1">&copy; 2025 Sonar Hoy. <br />Todos los derechos reservados.</p>
-      </div>      
-    </div>
-  </footer>
-
-  <script>
-    // Manejo del toggle para modo oscuro con persistencia en localStorage
-    const checkbox = document.getElementById("darkCheckbox");
-    const sunIcon = checkbox.parentElement.querySelector('svg[aria-label="sun"]');
-    const moonIcon = checkbox.parentElement.querySelector('svg[aria-label="moon"]');
   
-    // Aplica el modo oscuro según la configuración guardada
-    function applyDarkModeFromStorage() {
-      const isDark = localStorage.getItem('darkMode') === 'true';
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-        checkbox.checked = true;
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-      } else {
-        document.documentElement.classList.remove('dark');
-        checkbox.checked = false;
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-      }
-    }
-  
-    // Cambia el modo oscuro y guarda la preferencia al cambiar el toggle
-    checkbox.addEventListener("change", () => {
-      const isDark = checkbox.checked;
-      document.documentElement.classList.toggle("dark", isDark);
-      localStorage.setItem("darkMode", isDark);
-      if(isDark){
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-      } else {
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-      }
-    });
-  
-    applyDarkModeFromStorage();
-  </script>
 
+ 
 </body>
 </html>

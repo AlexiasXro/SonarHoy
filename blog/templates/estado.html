@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% comment %}
+Esta plantilla se utiliza para mostrar el estado del usuario. 
+Puede mostrar mensajes o información según el contexto. 
+Está diseñada para ser flexible y puede ampliarse con contenido adicional según sea necesario.
+Basicamente todo tipo de Alertas
+{% endcomment %}
+
+{% block title %}Estado del Usuario{% endblock %}
+
+{% comment %}
+{% endcomment %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  {% if message %}
+    <p>{{ message }}</p>
+  {% endif %}
+
+{% endblock %}
+
