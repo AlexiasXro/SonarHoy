@@ -1,17 +1,61 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>{{ title }}</title>
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors">
+
+  <!-- Navbar -->
+  <header class="bg-[#93278f] text-white shadow-md fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2">
+        <img src="{% static 'icons/logo.png' %}" alt="Logo" class="w-8 h-8" />
+        <span class="font-bold text-xl">SonarHoy</span>
+      </a>
+
+      <!-- Barra de búsqueda -->
+      <form action="{% url 'search' %}" method="get" class="hidden md:flex items-center bg-white rounded-md px-2 py-1">
+        <input type="text" name="q" placeholder="Buscar..." class="bg-transparent focus:outline-none text-black w-40" />
+        <button type="submit">
+          <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21 21l-4.35-4.35m0 0a7 7 0 111.41-1.41L21 21z"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Icono de usuario -->
+      <a href="{% url 'user:profile' %}" class="ml-4">
+        <img src="{% static 'icons/user.png' %}" alt="Perfil" class="w-8 h-8" />
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="pt-20 pb-10 min-h-screen">
     {% block content %}
     <p>Error: no hay contenido para mostrar en esta página.</p>
     {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white mt-10">
+    <div class="max-w-7xl mx-auto py-6 px-4 flex justify-between items-center">
+      <p class="text-sm">© 2025 SonarHoy - Todos los derechos reservados.</p>
+      <div class="flex gap-4">
+        <a href="#"><img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-6 h-6" /></a>
+        <a href="#"><img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-6 h-6" /></a>
+        <a href="#"><img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-6 h-6" /></a>
+        <a href="#"><img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-6 h-6" /></a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
