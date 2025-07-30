@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CustomUserCreationForm
 from django.contrib.auth import get_user_model
+from .forms import ProfileAvatarForm
 
 
 
@@ -85,13 +86,21 @@ class ProfileView(LoginRequiredMixin, generic.UpdateView):
         return self.request.user 
 
 
-#  vista para editar el avatar del perfil del usuario
-def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.method == 'POST':
-            context['avatar_form'] = ProfileAvatarForm(self.request.POST, self.request.FILES, instance=self.request.user.profile)
-        else:
-            context['avatar_form'] = ProfileAvatarForm(instance=self.request.user.profile)
-        return context
-
+    #  vista para editar el avatar del perfil del usuario
+    def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            if self.request.method == 'POST':
+                context['avatar_form'] = ProfileAvatarForm(self.request.POST, self.request.FILES, instance=self.request.user.profile)
+            else:
+                context['avatar_form'] = ProfileAvatarForm(instance=self.request.user.profile)
+            return context
+    def post(self, request, *args, **kwargs):
+            self.object = self.get_object()
+            avatar_form = ProfileAvatarForm(request.POST, request.FILES, instance=request.user.profile)
+            user_form = self.get_form()
+            if user_form.is_valid() and avatar_form.is_valid():
+                user_form.save()
+                avatar_form.save()
+                return self.form_valid(user_form)
+            return self.form_invalid(user_form)
 
