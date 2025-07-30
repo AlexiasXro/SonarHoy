@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+# user/forms.py
+from .models import Profile
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, label="Correo electrónico")
@@ -22,4 +24,7 @@ class CustomUserCreationForm(UserCreationForm):
             raise forms.ValidationError('Este email ya está registrado.')
         return email
     
-    
+class ProfileAvatarForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar']

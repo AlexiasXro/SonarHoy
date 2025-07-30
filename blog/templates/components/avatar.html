@@ -1,0 +1,7 @@
+{% load static %}
+{% if request.user.profile.avatar %}
+  <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="w-full h-full rounded-full border object-contain">
+  {% else %}
+  <img src="{% static 'icons/user-profile.png' %}" alt="Avatar" class="w-full h-full rounded-full border object-contain">  
+  
+  {% endif %}
