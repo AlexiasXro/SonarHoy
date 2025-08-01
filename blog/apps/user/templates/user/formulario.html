@@ -76,7 +76,7 @@
         </div>
       </form>
 
-      <!-- Enlace para registro y cambio de contraseña visible solo en login -->
+      <!-- cambio de contraseña visible solo en login -->
       {% if title == "Iniciar sesión" %}
         <div class="mt-4 text-center space-y-2">
           <p class="text-sm text-gray-700">
@@ -89,18 +89,20 @@
         </div>
       {% endif %}
 
-      <!-- Botones para iniciar sesión con Google y Facebook -->
-      <div class="mt-6 space-y-4">
-        <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
-          <img src="/static/icons/google.svg" alt="Google" class="w-5 h-5" />
-          <span>Iniciar sesión con Google</span>
-        </button>
+      <!-- Botones google y fk solo si estamos en "Iniciar sesión" -->
+{% if title == "Iniciar sesión" %}
+  <div class="mt-6 space-y-4">
+    <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
+      <img src="/static/icons/google.svg" alt="Google" class="w-5 h-5" />
+      <span>Iniciar sesión con Google</span>
+    </button>
 
-        <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
-          <img src="/static/icons/facebook.svg" alt="Facebook" class="w-5 h-5" />
-          <span>Iniciar sesión con Facebook</span>
-        </button>
-      </div>
+    <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
+      <img src="/static/icons/facebook.svg" alt="Facebook" class="w-5 h-5" />
+      <span>Iniciar sesión con Facebook</span>
+    </button>
+  </div>
+{% endif %}
 
       <!-- Mensajes de error si el formulario tuvo problemas -->
       {% if form_submitted and form_has_errors %}
