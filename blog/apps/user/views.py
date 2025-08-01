@@ -46,7 +46,7 @@ class UserCreateDoneView(generic.TemplateView):
 
 # gestión de contraseñas
 class PasswordChangeView(auth_views.PasswordChangeView):
-    template_name = 'user/formulario.html'
+    template_name = 'user/password_change_form.html'
     extra_context = {
         'title': 'Cambiar contraseña',
     }
