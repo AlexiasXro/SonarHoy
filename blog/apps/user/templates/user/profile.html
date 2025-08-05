@@ -1,13 +1,82 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="max-w-md mx-auto mt-16 bg-white dark:bg-gray-800 border border-[#93278f] rounded-lg shadow-md p-6 text-center">
-  <h2 class="text-2xl font-bold text-[#93278f] mb-4">¡Hola, {{ request.user.username }}!</h2>
-  <p class="text-gray-700 dark:text-gray-200 mb-6">Estás conectado a tu cuenta. ¿Deseás cerrar sesión?</p>
-  <form action="{% url 'user:logout' %}" method="post">
+<div class="max-w-md mx-auto mt-16 bg-white dark:bg-gray-800 border-2 border-indigo-600 rounded-xl shadow-lg p-8 text-center">
+  <h1 class="text-4xl font-bold text-indigo-600 mb-6 drop-shadow select-none">{{ title }}</h1>
+  <h2 class="text-2xl font-bold text-indigo-600 mb-6">¡Hola, {{ request.user.username }}!</h2>
+
+  <div class="w-32 h-32 mx-auto mb-6 cursor-pointer">
+    <img id="avatar-image"
+         src="{{ request.user.profile.avatar.url }}"
+         alt="Avatar"
+         class="rounded-full w-32 h-32 object-cover mx-auto" />
+  </div>
+
+  <p class="text-gray-700 dark:text-gray-200 mb-6 text-lg">Estás conectado a tu cuenta. ¿Deseás cerrar sesión?</p>
+  
+  <form action="{% url 'user:logout' %}" method="post" class="mb-6">
     {% csrf_token %}
     <input type="submit" value="Cerrar sesión"
-           class="bg-[#93278f] text-white font-semibold py-2 px-4 rounded hover:bg-purple-700 transition-colors" />
+           class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg" />
   </form>
+
+  <form action="{% url 'user:password_change' %}" method="get" class="mb-6">
+    <button type="submit" 
+      class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg w-full">
+      Cambiar contraseña
+    </button>
+  </form>
+
+  <!-- Botón para editar perfil -->
+  <button id="toggle-edit-profile" 
+        class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg mb-8 w-full">
+  Editar perfil
+</button>
+
+
+  <!-- Contenedor formulario inicialmente oculto -->
+  <div id="edit-profile-form" class="max-w-md mx-auto text-left space-y-6 hidden">
+    <form action="." method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {{ form.as_p }}
+
+      <!-- Input file oculto manual -->
+      <input type="file" name="{{ avatar_form.avatar.name }}" id="id_avatar" class="hidden" />
+
+      <input type="submit" value="Guardar cambios"
+             class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer mt-4 w-full text-lg" />
+    </form>
+  </div>
 </div>
+
+<script>
+  const avatarImage = document.getElementById('avatar-image');
+  const fileInput = document.getElementById('id_avatar');
+
+  avatarImage.addEventListener('click', () => {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', () => {
+    const [file] = fileInput.files;
+    if (file) {
+      avatarImage.src = URL.createObjectURL(file);
+    }
+  });
+
+  // Toggle formulario editar perfil
+  const toggleButton = document.getElementById('toggle-edit-profile');
+  const editForm = document.getElementById('edit-profile-form');
+
+  toggleButton.addEventListener('click', () => {
+    editForm.classList.toggle('hidden');
+    // Opcional: cambiar texto del botón
+    if (editForm.classList.contains('hidden')) {
+      toggleButton.textContent = 'Editar perfil';
+    } else {
+      toggleButton.textContent = 'Cerrar edición';
+    }
+  });
+</script>
 {% endblock %}
