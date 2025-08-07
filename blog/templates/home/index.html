@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto mt-10 px-4 text-center">
+  <h1 class="text-3xl md:text-5xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">Bienvenido a Sonar Hoy</h1>
+  <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8">
+    ¡Tu fuente confiable de noticias culturales y musicales independientes!
+  </p>
+  <a href="#"
+     class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition duration-300">
+    Explorar Noticias
+  </a>
+</section>
+
+<section class="max-w-7xl mx-auto mt-16 px-4">
+  <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Últimas novedades</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Placeholder de tarjeta de noticia -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded p-4">
+      <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-40 object-cover rounded mb-3" />
+      <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">Título de la Noticia</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Un pequeño resumen de la noticia o evento destacado.</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 shadow rounded p-4">
+      <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-40 object-cover rounded mb-3" />
+      <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">Otra Noticia</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Descripción breve de otro evento o anuncio.</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 shadow rounded p-4">
+      <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-40 object-cover rounded mb-3" />
+      <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">Y Otra Más</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Más contenido que puede atraer a tu audiencia.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

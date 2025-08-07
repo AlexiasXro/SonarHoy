@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="text-3xl font-bold text-center my-8 text-[#605dff]">
+    ¿Querés hablar con el admin?
+</h1>
+
+<div class="max-w-xl mx-auto p-6 border rounded-lg border-[#605dff]">
+    <form method="post" class="space-y-6 text-gray-900 dark:text-white">
+        {% csrf_token %}
+
+        <div>
+            <label for="id_nombre_apellido" class="block text-sm font-semibold mb-1 text-gray-900 dark:text-white">
+                Nombre y Apellido
+            </label>
+            {{ form.nombre_apellido }}
+        </div>
+
+        <div class="flex items-center">
+            {{ form.es_usuario }}
+            <label for="id_es_usuario" class="ml-2 text-sm text-gray-900 dark:text-white">
+                ¿Sos usuario de SonarHoy?
+            </label>
+        </div>
+
+        <div>
+            <label for="id_correo" class="block text-sm font-semibold mb-1 text-gray-900 dark:text-white">
+                Correo electrónico
+            </label>
+            {{ form.correo }}
+        </div>
+
+        <div>
+            <label for="id_tipo_consulta" class="block text-sm font-semibold mb-1 text-gray-900 dark:text-white">
+                Motivo de contacto
+            </label>
+            {{ form.tipo_consulta }}
+        </div>
+
+        <div>
+            <label for="id_mensaje" class="block text-sm font-semibold mb-1 text-gray-900 dark:text-white">
+                Mensaje (máx. 400 caracteres)
+            </label>
+            {{ form.mensaje }}
+        </div>
+
+        <button type="submit"
+            class="bg-[#605dff] hover:bg-[#4d4ad9] text-white font-semibold py-2 px-4 rounded transition">
+            Enviar mensaje
+        </button>
+    </form>
+</div>
+{% endblock %}
