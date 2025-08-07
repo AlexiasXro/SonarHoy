@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.conf import settings
 from django.utils.text import slugify #--> NO FUNCIONA
-import uuid #--> NO FUNCIONA
 import os #--> NO FUNCIONA
 
 class Category(models.Model):
