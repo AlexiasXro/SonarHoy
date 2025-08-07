@@ -1,0 +1,14 @@
+{% extends templates/layout.html %}
+
+{% block title %}POST-DETAIL{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>Published on: {{ post.published_date }}</p>
+    <div class="post-content">
+        {{ post.content|safe }}
+    </div>
+    <hr>
+    <p>Author: {{ post.author.username }}</p>
+    <p>Category: {{ post.category.name }}</p>
+{% endblock %}
