@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="max-w-xl mx-auto mt-16 p-8 border rounded-lg border-[#605dff] text-center">
+    <h1 class="text-3xl font-bold text-[#605dff] mb-4">¡Gracias por tu mensaje!</h1>
+    <p class="text-lg text-gray-800 dark:text-gray-200 mb-6">
+        Tu consulta fue enviada con éxito al administrador. Nos pondremos en contacto pronto.
+    </p>
+    <a href="{% url 'home' %}" class="inline-block mt-4 bg-[#605dff] hover:bg-[#4d4ad9] text-white font-semibold py-2 px-6 rounded transition">
+        Volver al inicio
+    </a>
+</div>
+{% endblock %}
