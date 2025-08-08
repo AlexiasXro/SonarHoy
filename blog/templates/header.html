@@ -1,18 +1,33 @@
 {% load static %}
 
-<!-- Banner grande -->
-  <section class="w-full h-24 md:h-32 bg-[#93278f] flex justify-center items-center">
-    <img src="{% static 'img/Marca_1.png' %}" alt="Banner" class="h-20 md:h-24 object-contain" />
-  </section>
+<!-- Banner grande que también redirige al inicio -->
+<section class="w-full h-24 md:h-32 bg-[#93278f] flex justify-center items-center">
+  <a href="{% url 'home' %}">
+    <img src="{% static 'img/Marca_1.png' %}" alt="Banner" class="h-20 md:h-24 object-contain cursor-pointer" />
+  </a>
+</section>
 
-  <!-- Redes sociales -->
-  <div class="w-full bg-[#93278f] py-1 px-4">
-    <div class="max-w-7xl mx-auto flex justify-start gap-4">
-      <a href="#"><img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-8 h-8" /></a>
-      <a href="#"><img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-8 h-8" /></a>
-      <a href="#"><img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-8 h-8" /></a>
-      <a href="#"><img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-8 h-8" /></a>
+<!-- Redes sociales -->
+<div class="w-full bg-[#93278f] py-1 px-4">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <!-- Redes -->
+    <div class="flex gap-4">
+      <a href="https://goo.su/GYWwzjZ" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-8 h-8" />
+      </a>
+      <a href="https://x.com/CarpinchOSg2" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-8 h-8" />
+      </a>
+      <a href="https://www.youtube.com/@CarpinchOSg2" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-8 h-8" />
+      </a>
+      <a href="https://www.tiktok.com/@carpinchosg2" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-8 h-8" />
+      </a>
     </div>
+
+    <!-- Buscador -->
+    <input type="text" placeholder="Buscar..." class="rounded border px-2 py-1 text-sm w-48 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
   </div>
 </div>
 
@@ -94,6 +109,13 @@
         {% endif %}
       {% endif %}
     </div>
-
   </div>
 </header>
+
+ 
+  <header class="bg-gray-300 dark:bg-gray-900 shadow">
+    <div class="max-w-7xl mx-auto relative flex items-center justify-between px-4 py-3">
+
+
+    </div>
+  </header>
