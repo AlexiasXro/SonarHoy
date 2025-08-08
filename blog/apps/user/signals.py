@@ -5,6 +5,8 @@ from apps.user.models import User
 from django.db.models.signals import post_save 
 # escucha la señal post_save del modelo Usuario para crear o actualizar perfiles de usuario y asignar permisos según los roles de usuario.
 from django.dispatch import receiver
+#from apps.blog.models import Post, Comment, Category  
+# cuando estén listos
 
 @receiver(post_save, sender=User)
 def creatr_group_and_permissions(sender, instance, created, **kwargs):
@@ -13,7 +15,7 @@ def creatr_group_and_permissions(sender, instance, created, **kwargs):
             #TODO: Definir los permisos de POST y de COMMENTS
 
             # Crear grupos y asignar permisos
-            # GRUPO:  Miembros
+            # Miembros
             member_group, created = Group.objects.get_or_create(name='Miembros')
             member_group.permissions.set(
                 Permission.objects.filter(
@@ -40,7 +42,7 @@ def creatr_group_and_permissions(sender, instance, created, **kwargs):
             )
             
 
-              #  GRUPO: Colaboradores 
+              # Colaboradores 
             collaborator_group, _ = Group.objects.get_or_create(name='Colaboradores')
             collaborator_group.permissions.set(
                 Permission.objects.filter(
