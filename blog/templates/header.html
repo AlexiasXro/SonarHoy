@@ -82,9 +82,9 @@
         {% endif %}
 
         {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'profile' %}
-          <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Mi Perfil</a>
+          <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-900">Mi Perfil</a>
         {% elif request.resolver_match.url_name == 'profile' %}
-          <a href="{% url 'user:login' %}" class="text-sm bg-red-500 text-white px-3 py-1 rounded">Cerrar sesión</a>
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-900">Cerrar sesión</a>
         {% endif %}
 
       {% elif request.session.guest_user %}
@@ -112,10 +112,3 @@
   </div>
 </header>
 
- 
-  <header class="bg-gray-300 dark:bg-gray-900 shadow">
-    <div class="max-w-7xl mx-auto relative flex items-center justify-between px-4 py-3">
-
-
-    </div>
-  </header>
