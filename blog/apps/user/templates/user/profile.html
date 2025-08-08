@@ -12,13 +12,7 @@
          class="rounded-full w-32 h-32 object-cover mx-auto" />
   </div>
 
-  <p class="text-gray-700 dark:text-gray-200 mb-6 text-lg">Estás conectado a tu cuenta. ¿Deseás cerrar sesión?</p>
-  
-  <form action="{% url 'user:logout' %}" method="post" class="mb-6">
-    {% csrf_token %}
-    <input type="submit" value="Cerrar sesión"
-           class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg" />
-  </form>
+  <p class="text-gray-700 dark:text-gray-200 mb-6 text-lg">Estás conectado a tu cuenta.</p>
 
   <form action="{% url 'user:password_change' %}" method="get" class="mb-6">
     <button type="submit" 
