@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4">
+
+    <!-- Título -->
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-[#605dff] mb-6">
+      ¿Quiénes somos?
+    </h2>
+
+    <!-- Descripción (máx. 3 líneas con line-clamp) -->
+    <div class="mx-auto max-w-3xl">
+      <p class="text-center text-lg leading-relaxed text-[#4d4d4d] dark:text-[#f3f4f6] clamp-3">
+        Este proyecto forma parte de la etapa 2 del <strong>Informatorio 2025</strong>. 
+        Es una plataforma que busca ofrecer información y herramientas útiles para nuestra comunidad,
+        combinando diseño atractivo, desarrollo ágil y trabajo en equipo. Fue desarrollado 
+        colaborativamente, integrando conocimientos en backend, frontend, gestión de proyectos 
+        y diseño de interfaces.
+      </p>
+    </div>
+
+    <!-- Equipo: 3 arriba, 2 abajo en desktop; responsive -->
+    <div class="mt-12 flex flex-wrap justify-center gap-8">
+      <!-- Card 1 -->
+      <article class="w-64 bg-white/50 dark:bg-gray-900 rounded-lg p-6 shadow-lg">
+        <img src="{% static 'img/purple_carpincho_arc.jpeg' %}" alt="Alejandra" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-lg font-semibold text-[#605dff]">Alejandra Romina Cáceres</h3>
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+          Repo principal en GitHub, definición y desarrollo de DER, Backend (user y layout), Digital Project Manager
+        </p>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="w-64 bg-white/50 dark:bg-gray-900 rounded-lg p-6 shadow-lg">
+        <img src="{% static 'img/green_carpincho_ea.jpeg' %}" alt="Ezequiel" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-lg font-semibold text-[#605dff]">Ezequiel Ávalos</h3>
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Desarrollador Frontend (post)</p>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="w-64 bg-white/50 dark:bg-gray-900 rounded-lg p-6 shadow-lg">
+        <img src="{% static 'img/pink_carpincho_fca.jpeg' %}" alt="Florencia" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-lg font-semibold text-[#605dff]">Florencia Carolina Azcoaga</h3>
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+          Definición de criterios de aceptación, Backend y Frontend (home, contacto y quienes somos), Diseño UI
+        </p>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="w-64 bg-white/50 dark:bg-gray-900 rounded-lg p-6 shadow-lg">
+        <img src="{% static 'img/red_carpincho_mk.jpeg' %}" alt="Martina" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-lg font-semibold text-[#605dff]">Martina Kendic</h3>
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Desarrolladora Backend (post)</p>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="w-64 bg-white/50 dark:bg-gray-900 rounded-lg p-6 shadow-lg">
+        <img src="{% static 'img/blue_carpincho_ns.jpeg' %}" alt="Nahuel" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-lg font-semibold text-[#605dff]">Nahuel Storace</h3>
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Desarrollador Frontend (user, header, footer, layout)</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- small helper css: line-clamp sin plugin -->
+<style>
+/* aplica el recorte a 3 líneas */
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* ajustes opcionales: que las cards se reduzcan en pantallas muy pequeñas */
+@media (max-width: 420px) {
+  .w-64 { width: 90% !important; } /* cards más estrechas en móvil */
+}
+</style>
+
+{% endblock %}
