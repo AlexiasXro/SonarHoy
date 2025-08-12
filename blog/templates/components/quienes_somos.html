@@ -10,18 +10,29 @@
       ¿Quiénes somos?
     </h2>
 
-    <!-- Descripción (máx. 3 líneas con line-clamp) -->
-    <div class="mx-auto max-w-3xl">
-      <p class="text-center text-lg leading-relaxed text-[#4d4d4d] dark:text-[#f3f4f6] clamp-3">
-        Este proyecto forma parte de la etapa 2 del <strong>Informatorio 2025</strong>. 
-        Es una plataforma que busca ofrecer información y herramientas útiles para nuestra comunidad,
-        combinando diseño atractivo, desarrollo ágil y trabajo en equipo. Fue desarrollado 
-        colaborativamente, integrando conocimientos en backend, frontend, gestión de proyectos 
-        y diseño de interfaces.
-      </p>
-    </div>
+    <!-- Descripción -->
+      <div class="mx-auto max-w-5xl">
+        <p class="text-center text-lg leading-relaxed text-[#4d4d4d] dark:text-[#f3f4f6] mb-6">
+          Este proyecto forma parte de la etapa 2 del <strong>Informatorio 2025,</strong> somos el 
+          Grupo 2 de la Comisión 3. 
+        </p>
+        <p class="text-center text-lg leading-relaxed text-[#4d4d4d] dark:text-[#f3f4f6] mb-6">
+          <strong>SonarHoy</strong> es el lugar donde la música en vivo de Argentina cobra vida. Te contamos qué bandas 
+          vienen, dónde y cuándo, para que no te pierdas ni un solo recital que valga la pena. Desde 
+          shows íntimos hasta estadios reventando de gente, acá vas a encontrar la data justa, sin 
+          vueltas y con la energía de quien ama estar en la primera fila.
+        </p>
+        <p class="text-center text-lg leading-relaxed text-[#4d4d4d] dark:text-[#f3f4f6] mb-6">
+          Fue desarrollado colaborativamente, integrando conocimientos en backend, frontend, gestión 
+          de proyectos y diseño de interfaces.
+        </p>
+        <p class="text-center text-lg leading-relaxed text-[#4d4d4d] dark:text-[#f3f4f6]">
+          El <strong>Grupo 2</strong> se encuentra integrado por:
+        </p>
+      </div>
 
-    <!-- Equipo: 3 arriba, 2 abajo en desktop; responsive -->
+
+    <!-- Equipo -->
     <div class="mt-12 flex flex-wrap justify-center gap-8">
       <!-- Card 1 -->
       <article class="w-64 bg-white/50 dark:bg-gray-900 rounded-lg p-6 shadow-lg">
@@ -65,20 +76,15 @@
   </div>
 </section>
 
-<!-- small helper css: line-clamp sin plugin -->
-<style>
-/* aplica el recorte a 3 líneas */
-.clamp-3 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
+<!-- Agradecimientos -->
+    <section class="max-w-4xl mx-auto px-4 py-12 text-center">
+        <h2 class="text-2xl font-semibold mb-4">Agradecimientos</h2>
+        <p class="text-lg leading-relaxed">
+            Estamos eternamente agradecidos con nuestro profesor <strong>Pablo Coletti Silva</strong> y el mejor
+            mentor <strong>Elias Perez</strong> por su tiempo, dedicación y paciencia durante todo el proceso. 
+            <strong>¡Gracias por guiarnos!</strong>
+        </p>
+    </section>
 
-/* ajustes opcionales: que las cards se reduzcan en pantallas muy pequeñas */
-@media (max-width: 420px) {
-  .w-64 { width: 90% !important; } /* cards más estrechas en móvil */
-}
-</style>
 
 {% endblock %}
