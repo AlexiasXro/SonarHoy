@@ -30,6 +30,7 @@ urlpatterns = [
     path('contacto/', include('apps.contacto_admin.urls')), 
     path('', include('apps.home.urls')),
     path('quienes_somos/', include('apps.quienes_somos.urls')),
+    path('agenda/', include('apps.agenda.urls')),
 
 ]
 if settings.DEBUG:

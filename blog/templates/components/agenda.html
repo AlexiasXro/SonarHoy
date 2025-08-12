@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1 class="text-3xl font-bold text-center my-8 text-[#605dff]">Agenda de eventos</h1>
+
+<div class="max-w-6xl mx-auto p-4">
+    <!-- Formulario de filtros -->
+    <form method="get" class="flex flex-wrap gap-4 justify-center mb-8">
+        <!-- Filtro Mes -->
+        <select name="mes" 
+                class="px-3 py-2 border rounded 
+                       bg-white text-gray-900 border-gray-300
+                       dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+            <option value="">Todos los meses</option>
+            {% for num, nombre in meses_disponibles %}
+                <option value="{{ num }}" {% if mes_seleccionado == num|stringformat:"s" %}selected{% endif %}>
+                    {{ nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <!-- Filtro Año -->
+        <select name="anio" 
+                class="px-3 py-2 border rounded 
+                       bg-white text-gray-900 border-gray-300
+                       dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+            <option value="">Todos los años</option>
+            {% for a in anios_disponibles %}
+                <option value="{{ a }}" {% if anio_seleccionado == a|stringformat:"s" %}selected{% endif %}>
+                    {{ a }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <!-- Filtro Localidad -->
+        <select name="localidad" 
+                class="px-3 py-2 border rounded 
+                       bg-white text-gray-900 border-gray-300
+                       dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+            <option value="">Todas las localidades</option>
+            {% for loc in localidades_disponibles %}
+                <option value="{{ loc }}" {% if localidad_seleccionada == loc %}selected{% endif %}>
+                    {{ loc }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" 
+                class="bg-[#605dff] hover:bg-[#4d4ad9] text-white font-semibold px-4 py-2 rounded">
+            Filtrar
+        </button>
+    </form>
+
+    <!-- Listado de eventos -->
+    {% if eventos %}
+        {% for fecha, lista_eventos in eventos.items %}
+            <h2 class="text-xl font-bold mt-8 mb-4 border-b border-gray-300 dark:border-gray-600">
+                {{ fecha }}
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                {% for evento in lista_eventos %}
+                    <div class="border border-gray-300 dark:border-gray-600 rounded-lg p-4 bg-white dark:bg-gray-800 shadow">
+                        {% if evento.imagen %}
+                            <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}" class="w-full h-40 object-cover rounded mb-3">
+                        {% endif %}
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-200">{{ evento.titulo }}</h3>
+                        <p class="text-sm text-gray-700 dark:text-gray-400">{{ evento.localidad }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-gray-600 dark:text-gray-400 mt-8">No hay eventos para los filtros seleccionados.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

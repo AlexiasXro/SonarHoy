@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apps.contacto_admin',
     'apps.home',
     'apps.quienes_somos',
+    'apps.agenda',
 
 ]
 
