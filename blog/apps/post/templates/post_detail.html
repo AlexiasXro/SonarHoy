@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>{{ post.title }}</h1>
-    <p>Published on: {{ post.published_date }}</p>
+    <p>Published on: {{ post.created_at }}</p>
     <div class="post-content">
         {{ post.content|safe }}
     </div>

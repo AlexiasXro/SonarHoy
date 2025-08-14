@@ -7,7 +7,7 @@ class PostListView(ListView):
     template_name = 'post_list.html'
     context_object_name = 'posts'
     ordering = ['-creation_date']
-    paginate_by = 5 
+    paginate_by = 6 
 
 class PostDetailView(DetailView):
     model = Post
