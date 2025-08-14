@@ -1,13 +1,11 @@
-
-# from apps.post import views as views --> no es necesario
-# from django.conf.urls import url --> NO FUNCIONA
-
 from . import views
 from django.urls import path
-
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
 
 urlpatterns = [
-    path('', views.PostListView.as_view(), name='post_list'),  # This will match /posts/
-    path('<slug:slug>/', views.PostDetailView.as_view(), name='post_detail'),  # This will match /posts/some-slug/
-    #path('post/', , name='post'),
+    path('', PostListView.as_view(), name='post_list'),
+    path('new/', PostCreateView.as_view(), name='post_create'),
+    path('<slug:slug>/', PostDetailView.as_view(), name='post_detail'),
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post_update'),
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
 ]
