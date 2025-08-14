@@ -6,7 +6,7 @@ class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
     context_object_name = 'posts'
-    ordering = ['-creation_date']
+    ordering = ['-created_at']
     paginate_by = 6 
 
 class PostDetailView(DetailView):
@@ -17,10 +17,11 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
+    template_name = 'post_form.html'
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    def form_valid(self, post_form):
+        post_form.instance.author = self.request.user
+        return super().form_valid(post_form)
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

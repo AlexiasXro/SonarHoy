@@ -1,6 +1,10 @@
 from .settings import BASE_DIR
 from pathlib import Path
 
+# FIXME MODIFICACION MARTU PARA VER IMAGENS
+import os
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-+)#(yq9=*$7y1n!)$f0)&8y15c(5o=_go+-g6xef$a2l&@f4!6'
 
@@ -21,5 +25,11 @@ STATIC_URL = 'static/'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_ROOT = BASE_DIR / '.media'
-MEDIA_URL = 'media/'
+## FIXME -- MODS MARTU PARA VER IMAGENES
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# MEDIA_ROOT = BASE_DIR / '.media'
+# MEDIA_URL = 'media/'
+

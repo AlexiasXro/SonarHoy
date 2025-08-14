@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Crear Nueva Publicación</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Título -->
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Título</label>
+            {{ form.title}}
+        </div>
+
+        <!-- Contenido -->
+        <div class="mb-3">
+            <label for="id_content" class="form-label">Contenido</label>
+            {{ form.content}}
+        </div>
+
+        <!-- Categoría -->
+        <div class="mb-3">
+            <label for="id_category" class="form-label">Categoría</label>
+            {{ form.category }}
+        </div>
+
+        <!-- Imagen -->
+        <div class="mb-3">
+            <label for="id_image" class="form-label">Imagen</label>
+            {{ form.image }}
+        </div>
+
+        <!-- Permitir comentarios -->
+        <div class="form-check mb-3">
+            {{ form.allow_comments}}
+            <label class="form-check-label" for="id_allow_comments">
+                Permitir comentarios
+            </label>
+        </div>
+
+        <!-- Botón enviar -->
+        <!-- HACER QUE VAYA A POSTS DE USUARIO O POSTLIST-->
+        <button type="submit" class="btn btn-primary">Guardar Publicación</button>
+    </form>
+</div>
+{% endblock  %}

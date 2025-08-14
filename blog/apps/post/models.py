@@ -6,29 +6,75 @@ from django.utils import timezone
 import os
 import uuid
 
+#-----------------------
+#  CATEGORY
+#-----------------------
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    #slug = models.SlugField(max_length=100, unique=True) --> original
+    #TODO: NO ME GENERA EL SLUG AUTOMATICAMENTE EN SUPERUSER 
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True) #solo para las migraciones
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug or self.slug.strip() == '':
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+#-----------------------
+#  POST
+#-----------------------
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=15000)
-    image = models.ImageField(upload_to='posts/', null=False, blank=False)
+    image = models.ImageField(upload_to='post/default/post_default.jpg', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='posts')
     allow_comments = models.BooleanField(default=True)
-    # images = models.ForeignKey(PostImage, on_delete=models.CASCADE, related_name='post_images')
-    slug = models.SlugField(max_length=125, unique=True, blank=True) #identificador + humano
+    slug = models.SlugField(max_length=200, unique=True, blank=False) #identificador + humano
 
-    def __str__(self):
-        return self.title
+def generate_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Post.objects.filter(slug=unique_slug).exclude(pk=self.pk).exists():
+            unique_slug = f'{slug}-{num}'
+            num += 1
+        return unique_slug
+
+def save(self, *args, **kwargs):
+    if not self.slug or self.slug == '':
+        self.slug = self.generate_unique_slug()
+
+    if not self.image:
+        self.image = 'media/post/default/post_default.jpg'
+
+    super().save(*args, **kwargs)
+
+
+#def save(self, *args, **kwargs):
+#         if not self.slug or self.slug.strip() == '':
+#             self.slug = self.generate_unique_slug()
+
+#         super().save(*args, **kwargs)
+
+#         # Imagen por defecto si no tiene
+#         if not self.images.exists():
+#             PostImage.objects.create(
+#                 post=self,
+#                 image='post/default/post_default.jpg'
+#             )
+
+
+
+#-----------------------
+#  POST IMAGE
+#-----------------------
 
 def get_image_path(instance, filename):
     post_id = instance.post.id
@@ -52,8 +98,13 @@ class PostImage(models.Model):
     def __str__(self):
         return f'Post Image {self.id}'
 
+
+#-----------------------
+#  COMENTARIOS
+#-----------------------
+
 class Comment(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField(max_length=100)
@@ -80,11 +131,11 @@ def generate_unique_slug(self):
 
     return unique_slug
 
-def save(self, *args, **kwargs):
-    if not self.slug:
-        self.slug = self.generate_unique_slug()
+# def save(self, *args, **kwargs):
+#     if not self.slug:
+#         self.slug = self.generate_unique_slug()
 
-        super().save(*args, **kwargs)
+#         super().save(*args, **kwargs)
 
-    if not self.images.exists():
-        PostImage.objects.create(post=self, image='post/default/post_default.jpg')
+#     if not self.images.exists():
+#         PostImage.objects.create(post=self, image='post/default/post_default.jpg')
