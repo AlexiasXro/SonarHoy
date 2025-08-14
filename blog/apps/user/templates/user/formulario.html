@@ -1,124 +1,141 @@
-
 {% extends 'layout.html' %}
 
+<!-- Sección principal de login o registro -->
+{% block content %}
+  <!-- Título de la página (Iniciar sesión o Registrarse) -->
+  <h2 class="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-8 drop-shadow select-none">{{ title }}</h2>
 
-  <!-- Sección principal de login o registro -->
-  {% block content %}
-    <!-- Título de la página (Iniciar sesión o Registrarse) -->
-    <h2 class="text-4xl font-bold text-indigo-600 dark:text-indigo-300 mb-8 drop-shadow select-none">{{ title }}</h2>
+  <!-- Contenedor del formulario -->
+  <div class="w-full bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg z-20 border-2 border-indigo-600">
 
-    <!-- Contenedor del formulario -->
-    <div class="w-full bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg z-20 border-2 border-indigo-600">
+    <!-- Formulario de login o registro -->
+    <form 
+      action="{% if title == 'Registrarse' %}{% url 'user:register' %}{% else %}{% url 'user:login' %}{% endif %}" 
+      method="post" 
+      class="space-y-6 overflow-hidden"
+    >
+      {% csrf_token %}
 
-     
-      <!-- Formulario de login o registro -->
-      <form action="." method="post" class="space-y-6 overflow-hidden">
-        {% csrf_token %}
-
-        <!-- Campo Nombre de usuario -->
-        {% if form.username %}
-        <div>
-          <label for="{{ form.username.id_for_label }}" class="block font-semibold mb-1">Nombre de usuario:</label>
-          {{ form.username }}
-          {% if form.username.errors %}
-            <p class="text-red-600 mt-1 text-sm">{{ form.username.errors.0 }}</p>
-          {% endif %}
-        </div>
+      <!-- Campo Nombre de usuario -->
+      {% if form.username %}
+      <div>
+        <label for="{{ form.username.id_for_label }}" class="block font-semibold mb-1">Nombre de usuario:</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+          <p class="text-red-600 mt-1 text-sm">{{ form.username.errors.0 }}</p>
         {% endif %}
-
-        <!-- Campo Correo electrónico -->
-        {% if form.email %}
-        <div>
-          <label for="{{ form.email.id_for_label }}" class="block font-semibold mb-1">Correo electrónico:</label>
-          {{ form.email }}
-          {% if form.email.errors %}
-            <p class="text-red-600 mt-1 text-sm">{{ form.email.errors.0 }}</p>
-          {% endif %}
-        </div>
-        {% endif %}
-
-        <!-- Campo Contraseña -->
-        {% if form.password1 %}
-        <div>
-          <label for="{{ form.password1.id_for_label }}" class="block font-semibold mb-1">Contraseña:</label>
-          {{ form.password1 }}
-          {% if form.password1.errors %}
-            <p class="text-red-600 mt-1 text-sm">{{ form.password1.errors.0 }}</p>
-          {% endif %}
-        </div>
-        {% endif %}
-
-        <!-- Campo Confirmar contraseña-->
-        {% if form.password2 %}
-        <div>
-          <label for="{{ form.password2.id_for_label }}" class="block font-semibold mb-1">Confirmar contraseña:</label>
-          {{ form.password2 }}
-          {% if form.password2.errors %}
-            <p class="text-red-600 mt-1 text-sm">{{ form.password2.errors.0 }}</p>
-          {% endif %}
-        </div>
-        {% endif %}
-
-        <!-- Campo Contraseña (formulario login) -->
-        {% if form.password %}
-        <div>
-          <label for="{{ form.password.id_for_label }}" class="block font-semibold mb-1">Contraseña:</label>
-          {{ form.password }}
-          {% if form.password.errors %}
-            <p class="text-red-600 mt-1 text-sm">{{ form.password.errors.0 }}</p>
-          {% endif %}
-        </div>
-        {% endif %}
-
-        <!-- Botón para enviar el formulario -->
-        <div class="h-12 relative">
-          <input type="submit" value="{{ title }}" class="absolute inset-0 w-full h-full bg-indigo-700 text-white rounded hover:bg-indigo-900 cursor-pointer transition" />
-        </div>
-      </form>
-
-      <!-- cambio de contraseña visible solo en login -->
-      {% if title == "Iniciar sesión" %}
-        <div class="mt-4 text-center space-y-2">
-          <p class="text-sm text-gray-700">
-            ¿No tenés cuenta?
-            <a href="{% url 'user:register' %}" class="text-blue-600 hover:underline font-semibold">Crear cuenta</a>
-          </p>
-          <p class="text-sm text-gray-700">¿Olvidaste tu contraseña?
-            <a href="{% url 'user:password_change' %}" class="text-blue-600 hover:underline font-semibold">Cambiar contraseña</a>
-          </p>
-        </div>
+      </div>
       {% endif %}
 
-      <!-- Botones google y fk solo si estamos en "Iniciar sesión" -->
-{% if title == "Iniciar sesión" %}
-  <div class="mt-6 space-y-4">
-    <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
-      <img src="/static/icons/google.svg" alt="Google" class="w-5 h-5" />
-      <span>Iniciar sesión con Google</span>
-    </button>
+      <!-- Campo Correo electrónico -->
+      {% if form.email %}
+      <div>
+        <label for="{{ form.email.id_for_label }}" class="block font-semibold mb-1">Correo electrónico:</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <p class="text-red-600 mt-1 text-sm">{{ form.email.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
 
-    <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
-      <img src="/static/icons/facebook.svg" alt="Facebook" class="w-5 h-5" />
-      <span>Iniciar sesión con Facebook</span>
-    </button>
-  </div>
-{% endif %}
+      <!-- Campo Contraseña -->
+      {% if form.password1 %}
+      <div>
+        <label for="{{ form.password1.id_for_label }}" class="block font-semibold mb-1">Contraseña:</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+          <p class="text-red-600 mt-1 text-sm">{{ form.password1.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
 
-      <!-- Mensajes de error si el formulario tuvo problemas -->
-      {% if form_submitted and form_has_errors %}
+      <!-- Campo Confirmar contraseña-->
+      {% if form.password2 %}
+      <div>
+        <label for="{{ form.password2.id_for_label }}" class="block font-semibold mb-1">Confirmar contraseña:</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+          <p class="text-red-600 mt-1 text-sm">{{ form.password2.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Campo Contraseña (formulario login) -->
+      {% if form.password %}
+      <div>
+        <label for="{{ form.password.id_for_label }}" class="block font-semibold mb-1">Contraseña:</label>
+        {{ form.password }}
+        {% if form.password.errors %}
+          <p class="text-red-600 mt-1 text-sm">{{ form.password.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Botón para enviar el formulario -->
+      <div class="h-12 relative">
+        <input type="submit" value="{{ title }}" class="absolute inset-0 w-full h-full bg-indigo-700 text-white rounded hover:bg-indigo-900 cursor-pointer transition" />
+      </div>
+    </form>
+
+    <!-- Botón "Iniciar sesión" SOLO en formulario de registro -->
+    {% if title == "Registrarse" %}
+      <div class="mt-4 text-center">
+        <p class="text-sm text-gray-700">
+          ¿Ya tenés cuenta?
+          <a href="{% url 'user:login' %}" class="text-blue-600 hover:underline font-semibold">Iniciar sesión</a>
+        </p>
+      </div>
+    {% endif %}
+
+    <!-- cambio de contraseña visible solo en login -->
+    {% if title == "Iniciar sesión" %}
+      <div class="mt-4 text-center space-y-2">
+        <p>
+          {% if is_guest %}
+        
+          {% else %}
+            <a href="{% url 'user:guest_login' %}" 
+               class="inline-block mt-2 px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-700 transition cursor-pointer">
+               Ingresar como invitado
+            </a>
+          {% endif %}
+        </p>
+
+        <p class="text-sm text-gray-700">
+          ¿No tenés cuenta?
+          <a href="{% url 'user:register' %}" class="text-blue-600 hover:underline font-semibold">Crear cuenta</a>
+        </p>
+
+        <p class="text-sm text-gray-700">¿Olvidaste tu contraseña?
+          <a href="{% url 'user:password_change' %}" class="text-blue-600 hover:underline font-semibold">Cambiar contraseña</a>
+        </p>
+      </div>
+    {% endif %}
+
+    <!-- Botones google y facebook solo si estamos en "Iniciar sesión" -->
+    {% if title == "Iniciar sesión" %}
+      <div class="mt-6 space-y-4">
+        <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
+          <img src="/static/icons/google.svg" alt="Google" class="w-5 h-5" />
+          <span>Iniciar sesión con Google</span>
+        </button>
+
+        <button type="button" class="w-full py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 flex items-center justify-center space-x-2">
+          <img src="/static/icons/facebook.svg" alt="Facebook" class="w-5 h-5" />
+          <span>Iniciar sesión con Facebook</span>
+        </button>
+      </div>
+    {% endif %}
+
+    <!-- Mensajes de error si el formulario tuvo problemas -->
+    {% if form_submitted and form_has_errors %}
       <div class="mt-6 text-center">
         <p class="text-red-600 text-sm mb-2">¿Tuvistes un problema? Probá alguna de estas opciones:</p>
         <div class="flex flex-col items-center space-y-3">
           {% for enlace in extra_links %}
-          <a href="{% url enlace.route %}" class="text-blue-600 hover:underline text-sm">{{ enlace.name }}</a>
+            <a href="{% url enlace.route %}" class="text-blue-600 hover:underline text-sm">{{ enlace.name }}</a>
           {% endfor %}
         </div>
       </div>
-      {% endif %}
-      {% endblock %}
-    </div>
-  
-
- 
-</body>
-</html>
+    {% endif %}
+{% endblock %}

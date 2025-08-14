@@ -71,29 +71,44 @@
 
     <!-- Botones usuario -->
     <div class="flex items-center gap-3">
-     {% if user.is_authenticated %}
-      <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Mi Perfil</a>
-      <a href="{% url 'user:logout' %}" class="text-sm bg-red-500 text-white px-3 py-1 rounded">Cerrar sesión</a>
-     {% else %}
-      {% if request.path == '/login/' %}
-        <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
-      {% elif request.path == '/register/' %}
-        <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
-      {% else %}
-        <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
-       <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
-      {% endif %}
-    {% endif %}
-</div>
+      {% if user.is_authenticated %}
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
+          <img 
+            src="{{ user.profile.avatar.url }}" 
+            alt="Avatar de {{ user.username }}" 
+            class="w-8 h-8 object-cover rounded-full" 
+            onerror="this.onerror=null;this.src='{% static 'icons/user-profile.png' %}';" 
+          />
+        {% endif %}
 
-    
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'profile' %}
+          <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-900">Mi Perfil</a>
+        {% elif request.resolver_match.url_name == 'profile' %}
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-900">Cerrar sesión</a>
+        {% endif %}
+
+      {% elif request.session.guest_user %}
+        <!-- Invitado -->
+        <img 
+          src="{% static 'icons/user-profile.png' %}" 
+          alt="Avatar Invitado" 
+          class="w-8 h-8 object-cover rounded-full" 
+        />
+        <span class="text-indigo-600 dark:text-indigo-300 font-semibold select-none">Invitado</span>
+        <a href="{% url 'user:login' %}" class="ml-3 text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar sesión</a>
+        <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
+
+      {% else %}
+        {% if request.resolver_match.url_name == 'login' %}
+          <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
+        {% elif request.resolver_match.url_name == 'register' %}
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
+        {% else %}
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
+          <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
+        {% endif %}
+      {% endif %}
+    </div>
   </div>
 </header>
 
- 
-  <header class="bg-gray-300 dark:bg-gray-900 shadow">
-    <div class="max-w-7xl mx-auto relative flex items-center justify-between px-4 py-3">
-
-
-    </div>
-  </header>

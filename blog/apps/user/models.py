@@ -22,3 +22,23 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     else:
         instance.profile.save()
+
+        
+    @property
+    #Roles de usuario
+    # Verifica si el usuario es un Miembros/Registrado
+    def is_Members(self):
+        return self.user.groups.filter(name='Miembros').exists() 
+    
+    @property
+    # Verifica si el usuario es colaborador
+    def is_collaborator(self):
+        return self.user.groups.filter(name='Colaboradores').exists()
+    
+    @property
+    def is_admin(self):
+        return self.user.groups.filter(name='Administradores').exists()
+
+
+
+
