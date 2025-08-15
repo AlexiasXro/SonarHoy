@@ -46,11 +46,9 @@ INSTALLED_APPS = [
 
     'django_browser_reload',
 
-
+    'apps.contacto_admin',
     'apps.user',
     'apps.post',
-    'apps.contacto_admin',
-    'apps.home',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = 'user:profile'
+LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'user:login'
 
