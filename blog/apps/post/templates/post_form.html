@@ -4,46 +4,22 @@
 {% block content %}
 
 <div class="container mt-5">
-    <h1 class="mb-4">Crear Nueva Publicación</h1>
+    {% if user.is_authenticated %}
+        <h1 class="mb-4">Crear Nueva Publicación</h1>
+    
+        <form method="post" action="{% url 'post_create' %}" enctype="multipart/form-data">
+        
+            {% csrf_token %}
+        
+            {{ form }}
+            
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"> Guardar Cambios
+        </form>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+        <button href="{% url 'post_list' %}" class="px-4 py-2 bg-gray-600 text-white rounded">Volver</button>  
 
-        <!-- Título -->
-        <div class="mb-3">
-            <label for="id_title" class="form-label">Título</label>
-            {{ form.title}}
-        </div>
-
-        <!-- Contenido -->
-        <div class="mb-3">
-            <label for="id_content" class="form-label">Contenido</label>
-            {{ form.content}}
-        </div>
-
-        <!-- Categoría -->
-        <div class="mb-3">
-            <label for="id_category" class="form-label">Categoría</label>
-            {{ form.category }}
-        </div>
-
-        <!-- Imagen -->
-        <div class="mb-3">
-            <label for="id_image" class="form-label">Imagen</label>
-            {{ form.image }}
-        </div>
-
-        <!-- Permitir comentarios -->
-        <div class="form-check mb-3">
-            {{ form.allow_comments}}
-            <label class="form-check-label" for="id_allow_comments">
-                Permitir comentarios
-            </label>
-        </div>
-
-        <!-- Botón enviar -->
-        <!-- HACER QUE VAYA A POSTS DE USUARIO O POSTLIST-->
-        <button type="submit" class="btn btn-primary">Guardar Publicación</button>
-    </form>
+    {% else %}
+        <p class="text-red-500">Debes <a href="{% url 'login' %}" class="underline">iniciar sesión</a> para crear un post.</p>
+{% endif %}
 </div>
 {% endblock  %}

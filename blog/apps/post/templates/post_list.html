@@ -1,18 +1,26 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
 <h1>Posts Page</h1>
-<a href="{% url 'post_create' %}">Create New Post</a>
+<br>
+<a href="{% url 'post_create' %}" class="px-4 py-2 bg-blue-600 text-white rounded">Create New Post</a>
 <ul>
 {% for post in posts %}
     <li>
+        <br>
         <a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a>
         <br>
-        {{ post.creation_date }} by {{ post.author }}
+        {{ post.created_at }} by {{ post.author }}
+        
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Imagen del post">
+        {% else %}
+            <img src="{% static 'post_images/post_default.jpg' %}" alt="Imagen por defecto">
+        {% endif %}
     </li>
 {% empty %}
     <li>No posts available.</li>
 {% endfor %}
 </ul>
-
 {% endblock %}

@@ -16,7 +16,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'image', 'category']
     template_name = 'post_form.html'
 
     def form_valid(self, post_form):
@@ -27,7 +27,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
+    template_name = 'post_update.html'
 
+#FIXME: el form_valid en update dice que no hace falta
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -42,6 +44,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
+    template_name = 'post_delete.html'
 
     def test_func(self):
         post = self.get_object()

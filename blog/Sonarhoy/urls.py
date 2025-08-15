@@ -29,5 +29,6 @@ urlpatterns = [
     path('contacto/', include('apps.contacto_admin.urls')), 
     path('', include('apps.home.urls')),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
