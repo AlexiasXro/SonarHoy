@@ -12,4 +12,6 @@ class Evento(models.Model):
 
     def __str__(self):
         return f"{self.titulo} - {self.fecha.strftime('%d/%m/%Y')}"
+    
+
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Evento
 from collections import defaultdict
 from datetime import date
@@ -12,16 +12,15 @@ def agenda(request):
 
     provincias_y_localidades = {
         "Ciudad Autónoma de Buenos Aires": [
-            "Palermo", "Recoleta", "Belgrano", "Almagro", "Caballito", "San Telmo", "Flores", "Villa Crespo", "Puerto Maderos", 
-            "Ciudad Universitaria", "Balvanera", "Montserrat", "Constitución", "La Boca", "Parque Patricios", "Villa Urquiza",
-            "Chacarita", "Colegiales", "Liniers", "La Paternal", "Nuñez", "Parque Avellaneda", "Retiro", "Microcentro"
+            "Palermo", "Almagro", "Caballito", "San Telmo", "Flores", "Villa Crespo", 
+            "Ciudad Universitaria", "Balvanera", "Chacarita", "Colegiales",
+            "Núñez", "Retiro", "Microcentro", "Parque Patricios", "Liniers", 
+            "Villa Soldati", "Villa Lugano",
         ],
-        "Córdoba": ["Córdoba", "Río Cuarto", "Cosquín", "Villa Carlos Paz"],
+        "Córdoba": ["Córdoba", "Cosquín", "Villa Carlos Paz"],
         "Buenos Aires": ["La Plata", "Mar del Plata", "Villa Gesell", "Zona Sur", "Zona Norte", "Zona Oeste"],
-        "Santa Fe": ["Rosario", "Reconquista", "Santa Fe", "Venado Tuerto"],  
-        "Chaco": ["Resistencia", "Colonia Benítez", "Sáenz Peña", "La Leonesa"],
-        "Corrientes": ["Corrientes", "Goya", "Mercedes", "Bella Vista", "Santa Ana", "Empedrado", "Paso de la Patria"],
-        "Misiones": ["Posadas", "Iguazú"],
+        "Santa Fe": ["Rosario", "Santa Fe"],  
+        "Chaco": ["Resistencia"],
         "Río Negro": ["Bariloche"],
         "San Juan": ["San Juan"],
         "Mendoza": ["Mendoza"],
@@ -58,3 +57,7 @@ def agenda(request):
         'mes_seleccionado': mes_seleccionado,
         'localidad_seleccionada': localidad_seleccionada,
     })
+
+def evento_agenda(request, evento_id):
+    evento = get_object_or_404(Evento, id=evento_id)
+    return render(request, 'components/evento_agenda.html', {'evento': evento})
