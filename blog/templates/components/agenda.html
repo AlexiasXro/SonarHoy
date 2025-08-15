@@ -1,77 +1,70 @@
 {% extends "layout.html" %}
+{% load static %}
 {% block content %}
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-center text-3xl font-bold mb-6" style="color: #605dff;">Agenda 2025</h1>
 
-<h1 class="text-3xl font-bold text-center my-8 text-[#605dff]">Agenda de eventos</h1>
-
-<div class="max-w-6xl mx-auto p-4">
     <!-- Formulario de filtros -->
-    <form method="get" class="flex flex-wrap gap-4 justify-center mb-8">
+    <form method="get" class="flex flex-wrap justify-center gap-4 items-end">
+        
         <!-- Filtro Mes -->
-        <select name="mes" 
-                class="px-3 py-2 border rounded 
-                       bg-white text-gray-900 border-gray-300
-                       dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
-            <option value="">Todos los meses</option>
-            {% for num, nombre in meses_disponibles %}
-                <option value="{{ num }}" {% if mes_seleccionado == num|stringformat:"s" %}selected{% endif %}>
-                    {{ nombre }}
-                </option>
-            {% endfor %}
-        </select>
-
-        <!-- Filtro Año -->
-        <select name="anio" 
-                class="px-3 py-2 border rounded 
-                       bg-white text-gray-900 border-gray-300
-                       dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
-            <option value="">Todos los años</option>
-            {% for a in anios_disponibles %}
-                <option value="{{ a }}" {% if anio_seleccionado == a|stringformat:"s" %}selected{% endif %}>
-                    {{ a }}
-                </option>
-            {% endfor %}
-        </select>
+        <div>
+            <label class="block text-gray-700 text-center dark:text-white">Mes</label>
+            <select name="mes" class="w-40 border border-gray-300 rounded-lg p-2 dark:text-black">
+                <option value="">Todos</option>
+                {% for num, nombre in meses_disponibles %}
+                    <option value="{{ num }}" {% if mes_seleccionado == num|stringformat:"s" %}selected{% endif %}>
+                        {{ nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
         <!-- Filtro Localidad -->
-        <select name="localidad" 
-                class="px-3 py-2 border rounded 
-                       bg-white text-gray-900 border-gray-300
-                       dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
-            <option value="">Todas las localidades</option>
-            {% for loc in localidades_disponibles %}
-                <option value="{{ loc }}" {% if localidad_seleccionada == loc %}selected{% endif %}>
-                    {{ loc }}
-                </option>
-            {% endfor %}
-        </select>
+        <div>
+            <label class="block text-gray-700 text-center dark:text-white">Localidad</label>
+            <select name="localidad" class="w-40 border border-gray-300 rounded-lg p-2 dark:text-black">
+                <option value="">Todas</option>
+                {% for localidad in localidades_disponibles %}
+                    <option value="{{ localidad }}" {% if localidad_seleccionada == localidad %}selected{% endif %}>
+                        {{ localidad }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
-        <button type="submit" 
-                class="bg-[#605dff] hover:bg-[#4d4ad9] text-white font-semibold px-4 py-2 rounded">
-            Filtrar
-        </button>
+        <!-- Botón -->
+        <div class="flex justify-center">
+            <button type="submit" class="w-40 bg-[#605dff] text-white font-bold py-2 px-4 rounded-lg">
+                Filtrar
+            </button>
+        </div>
     </form>
 
-    <!-- Listado de eventos -->
-    {% if eventos %}
-        {% for fecha, lista_eventos in eventos.items %}
-            <h2 class="text-xl font-bold mt-8 mb-4 border-b border-gray-300 dark:border-gray-600">
-                {{ fecha }}
-            </h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                {% for evento in lista_eventos %}
-                    <div class="border border-gray-300 dark:border-gray-600 rounded-lg p-4 bg-white dark:bg-gray-800 shadow">
-                        {% if evento.imagen %}
-                            <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}" class="w-full h-40 object-cover rounded mb-3">
-                        {% endif %}
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-200">{{ evento.titulo }}</h3>
-                        <p class="text-sm text-gray-700 dark:text-gray-400">{{ evento.localidad }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-    {% else %}
-        <p class="text-center text-gray-600 dark:text-gray-400 mt-8">No hay eventos para los filtros seleccionados.</p>
-    {% endif %}
+    <!-- Eventos -->
+    <div class="mt-8">
+        {% if eventos %}
+            {% for fecha, lista_eventos in eventos.items %}
+                <h2 class="text-lg font-semibold mt-6">{{ fecha }}</h2>
+                <div class="grid md:grid-cols-3 gap-6 mt-4">
+                    {% for ev in lista_eventos %}
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
+                            {% if ev.imagen %}
+                                <img src="{{ ev.imagen.url }}" alt="{{ ev.nombre }}" class="w-full h-48 object-cover">
+                            {% else %}
+                                <img src="{% static 'img/default_event.jpg' %}" alt="Imagen no disponible" class="w-full h-48 object-cover">
+                            {% endif %}
+                            <div class="p-4">
+                                <h3 class="text-xl font-bold mb-2">{{ ev.nombre }}</h3>
+                                <p class="text-gray-600">{{ ev.localidad }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-gray-500 mt-4">No hay eventos para los filtros seleccionados.</p>
+        {% endif %}
+    </div>
 </div>
-
 {% endblock %}
