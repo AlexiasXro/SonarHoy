@@ -8,12 +8,9 @@
 {% if active_images %}
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
     {% for image in active_images %}
-    <a href="{{ image.image.url }}" target="_blank">
-      <img 
-        src="{{ image.image.url }}"
-        alt="Portada del post {{ image.id }}"
-        class="w-[400px] object-cover aspect-[16/9]">
-    </a>
+      <a href="{{ image.image_url }}" target="_blank">
+    <img src="{{ image.image_url }}" alt="Post Image">
+  </a>
     {% endfor %}
   </div>
 {% endif %}

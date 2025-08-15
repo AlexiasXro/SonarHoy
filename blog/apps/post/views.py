@@ -6,6 +6,13 @@ from apps.post.forms import PostFilterForm, PostCreateForm, CommentForm
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
 
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import UpdateView
+from apps.post.models import Post
+from apps.post.forms import PostUpdateForm
+from django.urls import reverse
+from django.templatetags.static import static
+
 
 class PostListView(ListView):
     model = Post
@@ -94,15 +101,22 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        active_images = self.object.images.filter(active=True)
 
-        context['active_images'] = active_images
+        images_qs = self.object.images.filter(active=True)
+
+        if not images_qs.exists():
+            # Si no hay imágenes activas, usamos la por defecto
+            context['active_images'] = [{'image_url': settings.MEDIA_URL + settings.DEFAULT_POST_IMAGE}]
+        else:
+            # lista con la URL de cada imagen activa
+            context['active_images'] = [{'image_url': img.image.url} for img in images_qs]
+
         context['add_comment_form'] = CommentForm()
 
+        # Comentarios: edición
         edit_comment_id = self.request.GET.get('edit_comment')
         if edit_comment_id:
             comment = get_object_or_404(Comment, id=edit_comment_id)
-
             if comment.author == self.request.user:
                 context['editing_comment_id'] = comment.id
                 context['edit_comment_form'] = CommentForm(instance=comment)
@@ -110,18 +124,15 @@ class PostDetailView(DetailView):
                 context['editing_comment_id'] = None
                 context['edit_comment_form'] = None
 
+        # Comentarios: eliminación
         delete_comment_id = self.request.GET.get('delete_comment')
         if delete_comment_id:
             comment = get_object_or_404(Comment, id=delete_comment_id)
-
             if (comment.author == self.request.user or
-                    (comment.post.author == self.request.user and not
-                     comment.author.is_admin and not
-                     comment.author.is_superuser) or
-                    self.request.user.is_superuser or
-                    self.request.user.is_staff or
-                    self.request.user.is_admin
-                ):
+                (comment.post.author == self.request.user and not comment.author.is_admin and not comment.author.is_superuser) or
+                self.request.user.is_superuser or
+                self.request.user.is_staff or
+                self.request.user.is_admin):
                 context['deleting_comment_id'] = comment.id
             else:
                 context['deleting_comment_id'] = None
@@ -129,13 +140,33 @@ class PostDetailView(DetailView):
         return context
 
 
-class PostUpdateView(UpdateView):
-    template_name = 'post_detail.html'
+
+# Update 
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    form_class = PostUpdateForm
+    template_name = 'post_update.html'
+    context_object_name = 'post'
+
+    def test_func(self):
+        post = self.get_object()
+        user = self.request.user
+        return post.author == user or user.is_superuser or user.groups.filter(name='Administradores').exists()
+
+    def get_success_url(self):
+        return reverse('post:post_detail', kwargs={'slug': self.object.slug})
 
 
-class PostDeleteView(DeleteView):
-    template_name = 'post_detail.html'
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    context_object_name = 'post'
+    success_url = reverse_lazy('post:post_list')
 
+    def test_func(self):
+        post = self.get_object()
+        user = self.request.user
+        return post.author == user or user.is_superuser or user.groups.filter(name='Administradores').exists()
 
 class CommentCreateView(CreateView):
     model = Comment

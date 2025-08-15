@@ -5,7 +5,7 @@ from apps.post.models import Comment, Post, PostImage
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'content', 'allow_comments')
+        fields = ('title', 'content', 'allow_comments','category')
 
 
 class PostCreateForm(PostForm):

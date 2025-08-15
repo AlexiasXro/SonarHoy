@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}Eliminar Post{% endblock title %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-16 bg-white dark:bg-gray-800 border-2 border-red-600 rounded-xl shadow-lg p-8 text-center">
+  <h1 class="text-2xl font-bold text-red-600 mb-6">¿Estás seguro de eliminar este post?</h1>
+  <p class="mb-4 text-gray-700 dark:text-gray-200">{{ post.title }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="flex justify-center gap-4">
+      <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Sí, eliminar</button>
+      <a href="{% url 'post:post_detail' slug=post.slug %}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock content %}
