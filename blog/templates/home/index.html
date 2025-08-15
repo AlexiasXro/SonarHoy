@@ -2,36 +2,87 @@
 {% load static %}
 
 {% block content %}
-<section class="max-w-7xl mx-auto mt-10 px-4 text-center">
-  <h1 class="text-3xl md:text-5xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">Bienvenido a Sonar Hoy</h1>
-  <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8">
+
+<!-- Hero -->
+<section class="max-w-7xl mx-auto  px-2 text-center">
+  <h4 class="text-1xl md:text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">
+    Bienvenido a Sonar Hoy
+  </h4>
+  <p class="text-md md:text-xl text-gray-700 dark:text-gray-300 mb-2">
     ¡Tu fuente confiable de noticias culturales y musicales independientes!
   </p>
   <a href="#"
-     class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition duration-300">
+    class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-normal py-2 px-2 rounded transition duration-300">
     Explorar Noticias
   </a>
 </section>
 
-<section class="max-w-7xl mx-auto mt-16 px-4">
-  <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Últimas novedades</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Placeholder de tarjeta de noticia -->
-    <div class="bg-white dark:bg-gray-800 shadow rounded p-4">
-      <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-40 object-cover rounded mb-3" />
-      <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">Título de la Noticia</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">Un pequeño resumen de la noticia o evento destacado.</p>
+<!-- Noticias + Contenido Izquierda + Ranking Spotify -->
+<section class="mt-12 px-4">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start w-full">
+
+    <!-- Columna izquierda -->
+    <div class="lg:col-span-2 space-y-6">
+
+      <!-- Noticias -->
+      <div class="space-y-4">
+        <div class="bg-white dark:bg-gray-800 shadow rounded p-4 flex flex-col h-full">
+          <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-48 object-cover rounded mb-3" />
+          <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">
+            Título de la Noticia
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Un pequeño resumen de la noticia o evento destacado.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 shadow rounded p-4 flex flex-col h-full">
+          <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-48 object-cover rounded mb-3" />
+          <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">
+            Otra Noticia
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Descripción breve de otro evento o anuncio.
+          </p>
+        </div>
+      </div>
+
+
+
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">
+          🐦 Últimos Tweets
+        </h3>
+        <a class="twitter-timeline" data-height="600" data-theme="light"
+          href="https://twitter.com/Coldplay?ref_src=twsrc%5Etfw">
+          Tweets by Coldplay
+        </a>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">
+          El feed de Twitter se mostrará aquí en producción.
+        </p>
+      </div>
+
+
+
+
     </div>
-    <div class="bg-white dark:bg-gray-800 shadow rounded p-4">
-      <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-40 object-cover rounded mb-3" />
-      <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">Otra Noticia</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">Descripción breve de otro evento o anuncio.</p>
+
+    <!-- Columna derecha: Ranking Spotify -->
+    <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg shadow w-full">
+      <h3 class="text-lg font-bold mb-2 text-indigo-600 dark:text-indigo-400">
+        🎧 Top 50 Argentina
+      </h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        Playlist oficial de Spotify - Actualizada diariamente.
+      </p>
+      <iframe style="border-radius:12px"
+        src="https://open.spotify.com/embed/playlist/37i9dQZEVXbMMy2roB9myp?utm_source=generator" width="100%"
+        height="600" frameBorder="0" allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+      </iframe>
     </div>
-    <div class="bg-white dark:bg-gray-800 shadow rounded p-4">
-      <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-40 object-cover rounded mb-3" />
-      <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300">Y Otra Más</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">Más contenido que puede atraer a tu audiencia.</p>
-    </div>
+
   </div>
 </section>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
