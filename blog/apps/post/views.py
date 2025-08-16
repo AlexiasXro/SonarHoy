@@ -19,7 +19,7 @@ class PostListView(ListView):
     template_name = 'post_list.html'
     context_object_name = "posts"
 
-    paginate_by = 1
+    paginate_by = 6
 
 # Filter and Pagination 
     def get_queryset(self):
