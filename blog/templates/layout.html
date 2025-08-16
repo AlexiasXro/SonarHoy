@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,8 +11,7 @@
     tailwind.config = { darkMode: 'class' }
   </script>
   <style>
-    
-     /* Estilos para los inputs dentro de formularios */
+    /* Estilos para los inputs dentro de formularios */
     form input[type="text"],
     form input[type="password"],
     form input[type="email"] {
@@ -28,6 +28,23 @@
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: none;
     }
+
+    form textarea,
+    form select {
+      margin-top: 0.25rem;
+      padding: 0.5rem;
+      display: block;
+      width: 100%;
+      border-radius: 0.375rem;
+      border: 2px solid #6366f1;
+      background-color: #fff;
+      color: #111827;
+      transition-property: border-color, box-shadow;
+      transition-duration: 150ms;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: none;
+    }
+
     /* Modo oscuro */
     html.dark form input[type="text"],
     html.dark form input[type="password"],
@@ -36,6 +53,7 @@
       border-color: #4f46e5;
       color: #fff;
     }
+
     /* Estilos de los inputs */
     form input[type="text"]:focus,
     form input[type="password"]:focus,
@@ -46,6 +64,7 @@
       background-color: #fff;
       color: #111827;
     }
+
     html.dark form input[type="text"]:focus,
     html.dark form input[type="password"]:focus,
     html.dark form input[type="email"]:focus {
@@ -75,42 +94,90 @@
     label.toggle svg[aria-label="sun"] {
       display: inline-block;
     }
+
     /* Oculta ícono de luna cuando el toggle NO está activo */
     label.toggle svg[aria-label="moon"] {
       display: none;
     }
+
     /* Cambia íconos cuando el toggle está activo */
-    label.toggle input[type="checkbox"]:checked ~ svg[aria-label="sun"] {
+    label.toggle input[type="checkbox"]:checked~svg[aria-label="sun"] {
       display: none;
     }
-    label.toggle input[type="checkbox"]:checked ~ svg[aria-label="moon"] {
+
+    label.toggle input[type="checkbox"]:checked~svg[aria-label="moon"] {
       display: inline-block;
+    }
+
+
+    /* Estilo por defecto: modo claro */
+    h1 {
+      font-size: 1.875rem;
+      /* text-3xl */
+      line-height: 2.25rem;
+      font-weight: 700;
+      /* bold */
+      color: #4338ca;
+      /* indigo-700 */
+      margin-bottom: 1.5rem;
+      /* mb-6 */
+    }
+
+    /* Modo oscuro: body tiene clase .dark */
+    body.dark h1 {
+      color: #a5b4fc;
+      /* indigo-300 */
+    }
+
+    /* Variante más clara (modo claro pero más suave) */
+    body.light h1 {
+      color: #6366f1;
+      /* indigo-500 */
+    }
+
+    /* Estilo por defecto: modo claro */
+    h3 {
+      font-size: 1.125rem;
+      /* text-lg */
+      font-weight: 700;
+      /* font-bold */
+      color: #4338ca;
+      /* indigo-600 */
+      margin-bottom: 0.5rem;
+      /* opcional */
+    }
+
+    /* Modo oscuro: body con clase .dark */
+    body.dark h3 {
+      color: #a5b4fc;
+      /* indigo-300 */
     }
   </style>
 
 </head>
 
 
-<body class="bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white transition-colors duration-500">
+<body
+  class="bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white transition-colors duration-500">
 
- <!--HEADER 
+  <!--HEADER 
   -Banner grande
   -Redes sociales-Control de modo oscuro y barra de búsqueda
   -Navegación principal
   -Botón de acceso (login o registrarse) y avatar -->
-    {% include 'header.html' %}
+  {% include 'header.html' %}
 
 
 
-  <!-- contenido dinamico  -->  
-  <main class="flex flex-col items-center justify-center px-4 py-16 min-h-[70vh] max-w-md mx-auto">
-    
+  <!-- contenido dinamico  -->
+  <main class="flex flex-col items-center justify-center px-4 py-8 min-h-[70vh] max-w-7xl mx-auto">
+
     {% block content %}
-   
+
     <p>Error: no hay contenido para mostrar en esta página.</p>
-   
+
     {% endblock %}
-  
+
   </main>
 
 
@@ -118,14 +185,14 @@
    -redes sociales
    -enlaces
    -derechos reservados -->
-   {% include 'footer.html' %}
+  {% include 'footer.html' %}
 
   <script>
     // Manejo del toggle para modo oscuro con persistencia en localStorage
     const checkbox = document.getElementById("darkCheckbox");
     const sunIcon = checkbox.parentElement.querySelector('svg[aria-label="sun"]');
     const moonIcon = checkbox.parentElement.querySelector('svg[aria-label="moon"]');
-  
+
     // Aplica el modo oscuro según la configuración guardada
     function applyDarkModeFromStorage() {
       const isDark = localStorage.getItem('darkMode') === 'true';
@@ -141,13 +208,13 @@
         moonIcon.classList.add('hidden');
       }
     }
-  
+
     // Cambia el modo oscuro y guarda la preferencia al cambiar el toggle
     checkbox.addEventListener("change", () => {
       const isDark = checkbox.checked;
       document.documentElement.classList.toggle("dark", isDark);
       localStorage.setItem("darkMode", isDark);
-      if(isDark){
+      if (isDark) {
         sunIcon.classList.add('hidden');
         moonIcon.classList.remove('hidden');
       } else {
@@ -155,10 +222,11 @@
         moonIcon.classList.add('hidden');
       }
     });
-  
+
     applyDarkModeFromStorage();
   </script>
 
 
 </body>
+
 </html>

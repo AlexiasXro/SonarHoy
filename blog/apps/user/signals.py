@@ -20,23 +20,18 @@ def creatr_group_and_permissions(sender, instance, created, **kwargs):
             member_group.permissions.set(
                 Permission.objects.filter(
                     codename__in=[
-                       # # Permisos sobre comentarios
-                       # "add_comment", "view_comment",
-
-                       # # Permisos sobre publicaciones
-                       # "view_post",
-
-                       # # Permisos sobre suscripciones
-                       # 'add_subscription', 'view_subscription',
-
-                       # # Permisos sobre categorías, si aplican
-                       # "view_category",
-
-                       # # Permisos sobre "me gusta" o valoraciones (modelo Like)
-                       # "add_like", "view_like",
-
-                       # # Ver contenido exclusivo
-                       # "view_exclusivecontent",
+                       # Permisos sobre comentarios
+                       "add_comment", "view_comment"
+                       # Permisos sobre publicaciones
+                       "view_post"
+                       # Permisos sobre suscripciones
+                       'add_subscription', 'view_subscription'
+                       # Permisos sobre categorías, si aplican
+                       "view_category"
+                       # Permisos sobre "me gusta" o valoraciones (modelo Like)
+                       "add_like", "view_like"
+                       # Ver contenido exclusivo
+                       "view_exclusivecontent",
                     ]
                 )
             )
@@ -47,17 +42,17 @@ def creatr_group_and_permissions(sender, instance, created, **kwargs):
             collaborator_group.permissions.set(
                 Permission.objects.filter(
                     codename__in=[
-               # # Comentarios
-               # 'add_comment', 'view_comment', 'change_comment', 'delete_comment',
+               # Comentarios
+               'add_comment', 'view_comment', 'change_comment', 'delete_comment',
 
-               # # Posts (pueden crear y editar los suyos)
-               # 'add_post', 'view_post', 'change_post',
+               # Posts (pueden crear y editar los suyos)
+               'add_post', 'view_post', 'change_post',
 
-               # # Likes
-               # 'add_like', 'view_like',
+               # Likes
+               'add_like', 'view_like',
 
-               # # Ver categorías y contenido exclusivo
-               # 'view_category', 'view_exclusivecontent',
+               # Ver categorías y contenido exclusivo
+               'view_category', 'view_exclusivecontent',
                 ]))
             
             #  GRUPO: Administradores 

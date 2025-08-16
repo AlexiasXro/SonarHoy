@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="flex flex-wrap items-center gap-4 mb-2">
+  <!-- Título -->
+  <h1 class="text-3xl font-semibold text-indigo-700 dark:text-indigo-300">
+    Publicaciones
+  </h1>
+
+  <!-- Contenedor de botones -->
+  <div class="flex flex-wrap gap-2">
+    <!-- Botón Crear Post -->
+    <a href="{% url 'post_create' %}" class="bg-indigo-700 text-white font-normal py-2 px-4 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg">
+      Publicar
+    </a>
+
+    <!-- Botón Todos -->
+    <a href="{% url 'post_list' %}" class="bg-indigo-700 text-white font-normal py-2 px-4 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg {% if not selected_category %}font-bold{% endif %}">
+      Todos
+    </a>
+
+    <!-- Botones de categorías -->
+    {% for category in categories %}
+      <a href="{% url 'post_list_by_category' category.name %}" class="bg-indigo-600 text-white font-normal py-2 px-4 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg {% if selected_category == category.name %}font-bold underline{% endif %}">
+        {{ category.name }}
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% if posts %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for post in posts %}
+      <div class="bg-white dark:bg-gray-900 rounded shadow p-4 flex flex-col gap-4">
+        {% if post.image %}
+          <img src="{{ post.image.url }}" alt="Imagen del post" class="w-full max-h-64 object-cover rounded">
+        {% else %}
+          <img src="{% static 'post_images/post_default.jpg' %}" alt="Imagen por defecto" class="w-full max-h-64 object-cover rounded">
+        {% endif %}
+
+        <h2 class="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">{{ post.title }}</h2>
+        <p class="text-sm text-indigo-400 dark:text-indigo-700">{{ post.created_at|date:"d M Y" }} por {{ post.author }}</p>
+        <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed break-words whitespace-pre-wrap">
+          {{ post.content|truncatewords:30 }}
+        </p>
+        <a href="{% url 'post_detail' post.slug %}" class="text-blue-600 hover:underline mt-auto">
+          Leer más →
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="text-center text-gray-600 dark:text-gray-300 py-12">
+    <h2 class="text-xl font-semibold mb-2">📭 No hay posts en la categoría{% if selected_category %} "{{ selected_category }}"{% endif %}</h2>
+    <p class="text-base">Pronto habrá contenido aquí. ¡Volvé más tarde o explorá otra categoría!</p>
+  </div>
+{% endif %}
+
+{% endblock %}
