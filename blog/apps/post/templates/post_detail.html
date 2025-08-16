@@ -6,27 +6,85 @@
 {% block title %}Más sobre post:{{ post.title }}{% endblock %}
 <br>
 <br>
-<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-    <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
-    <p class="text-gray-500 text-sm mb-4">
+<div class="max-w-4xl mx-auto bg-white dark:bg-gray-900 p-8 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
+
+    <h1 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{{ post.title }}</h1>
+    <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">
         Publicado el {{ post.created_at|date:"d M Y" }} por {{ post.author }}
     </p>
 
     {% if post.image %}
-            <img src="{{ post.image.url }}" alt="Imagen del post">
+            <img src="{{ post.image.url }}" class="w-full max-h-64 object-cover rounded" />
+
         {% else %}
             <img src="{% static 'post_images/post_default.jpg' %}" alt="Imagen por defecto">
         {% endif %}
 
-    <div class="prose">
+    <div class="prose prose-lg dark:prose-invert max-w-none">
         {{ post.content|linebreaks }}
     </div>
-</div>
+</div> 
+<form action="{% url 'toggle_like' post.slug %}" method="post" class="inline-block mt-4">
+  {% csrf_token %}
+  <button type="submit" class="px-4 py-2 rounded 
+    {% if user in post.likes.all %}
+      bg-red-600 text-white hover:bg-red-700
+    {% else %}
+      bg-gray-300 text-gray-800 hover:bg-gray-400
+    {% endif %}
+  ">
+    ❤️ {{ post.total_likes }} Me gusta
+  </button>
+</form>
+
+<section class="mt-10">
+  <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Comentarios</h2>
+
+  {% if comments %}
+    <ul class="space-y-6">
+      {% for comment in comments %}
+        <li class="bg-gray-100 dark:bg-gray-800 p-4 rounded shadow-sm">
+          <div class="text-sm text-gray-600 dark:text-gray-300">
+            <span class="font-semibold">{{ comment.author.username }}</span> comentó el {{ comment.created_at|date:"d M Y H:i" }}
+          </div>
+          <p class="mt-2 text-gray-900 dark:text-white">{{ comment.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-gray-500 dark:text-gray-400">Aún no hay comentarios. ¡Sé el primero en opinar!</p>
+  {% endif %}
+</section>
+<section class="mt-12">
+  <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Agregar un comentario</h3>
+
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">
+      Publicar
+    </button>
+  </form>
+</section>
 
     {% if user.is_authenticated and post.author == user %}
-        <a href="{% url 'post_update' post.slug %}" class="px-4 py-2 bg-blue-600 text-white rounded">Editar</a>
-        <a href="{% url 'post_delete' post.slug %}" class="px-4 py-2 bg-red-600 text-white rounded">Eliminar</a>
-        <a href="{% url 'post_list' %}" class="px-4 py-2 bg-gray-600 text-white rounded">Volver</a>  
+        <div class="flex flex-wrap gap-4 mt-8">
+  <!-- 📝 Editar -->
+  <a href="{% url 'post_update' post.slug %}" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">
+    ✏️ Editar
+  </a>
+
+  <!-- 🗑️ Eliminar -->
+  <a href="{% url 'post_delete' post.slug %}" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+    🗑️ Eliminar
+  </a>
+
+  <!-- 🔙 Volver -->
+  <a href="{% url 'post_list' %}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 transition">
+    ← Volver
+  </a>
+</div>
+  
         {% else %}
         <br>
             <p class="text-red-600">No tienes permiso para editar o eliminar este post.</p>
