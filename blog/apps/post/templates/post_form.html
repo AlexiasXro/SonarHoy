@@ -3,23 +3,31 @@
 
 {% block content %}
 
-<div class="container mt-5">
+
     {% if user.is_authenticated %}
-        <h1 class="mb-4">Crear Nueva Publicación</h1>
-    
-        <form method="post" action="{% url 'post_create' %}" enctype="multipart/form-data">
+          <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 max-w-lg mx-auto">
+            <h1 class="mb-4 text-2xl font-bold text-indigo-700 dark:text-indigo-300">Crear Nueva Publicación</h1>
         
-            {% csrf_token %}
-        
-            {{ form }}
-            
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"> Guardar Cambios
-        </form>
+            <form method="post" action="{% url 'post_create' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {{ form }}
+                
+                <button type="submit" 
+                        class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer mt-4 w-full text-lg">
+                    Guardar Cambios
+                </button>
+            </form>
 
-        <button href="{% url 'post_list' %}" class="px-4 py-2 bg-gray-600 text-white rounded">Volver</button>  
-
+            <a href="{% url 'post_list' %}" 
+               class="block text-center bg-indigo-500 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer mt-4 w-full text-lg">
+                Volver
+            </a>
+        </div>
     {% else %}
-        <p class="text-red-500">Debes <a href="{% url 'login' %}" class="underline">iniciar sesión</a> para crear un post.</p>
-{% endif %}
-</div>
+        <p class="text-red-500">
+            Debes <a href="{% url 'login' %}" class="underline">iniciar sesión</a> para crear un post.
+        </p>
+    {% endif %}
+
 {% endblock  %}

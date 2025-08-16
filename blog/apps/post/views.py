@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
+  
     context_object_name = 'posts'
     ordering = ['-created_at']
     paginate_by = 6 

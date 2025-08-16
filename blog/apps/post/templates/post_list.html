@@ -3,24 +3,34 @@
 
 {% block content %}
 
-<h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-6">
-  Posts Page
-</h1>
-<div class="flex justify-end mb-4">
-  <a href="{% url 'post_create' %}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-    Crear nuevo post
-  </a>
-</div>
-<div class="flex flex-wrap gap-4 mb-8">
-  <a href="{% url 'post_list' %}" class="px-4 py-2 rounded bg-gray-300 text-gray-800 hover:bg-gray-400 {% if not selected_category %}font-bold{% endif %}">
-    Todos
-  </a>
-  {% for category in categories %}
-    <a href="{% url 'post_list_by_category' category.name %}" class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 {% if selected_category == category.name %}font-bold underline{% endif %}">
-      {{ category.name }}
+
+<div class="flex flex-wrap items-center gap-4 mb-2">
+  <!-- Título -->
+  <h1 class="text-3xl font-semibold text-indigo-700 dark:text-indigo-300">
+    Publicaciones
+  </h1>
+
+  <!-- Contenedor de botones -->
+  <div class="flex flex-wrap gap-2">
+    <!-- Botón Crear Post -->
+    <a href="{% url 'post_create' %}" class="bg-indigo-700 text-white font-normal py-2 px-4 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg">
+      Publicar
     </a>
-  {% endfor %}
+
+    <!-- Botón Todos -->
+    <a href="{% url 'post_list' %}" class="bg-indigo-700 text-white font-normal py-2 px-4 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg {% if not selected_category %}font-bold{% endif %}">
+      Todos
+    </a>
+
+    <!-- Botones de categorías -->
+    {% for category in categories %}
+      <a href="{% url 'post_list_by_category' category.name %}" class="bg-indigo-600 text-white font-normal py-2 px-4 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg {% if selected_category == category.name %}font-bold underline{% endif %}">
+        {{ category.name }}
+      </a>
+    {% endfor %}
+  </div>
 </div>
+
 
 {% if posts %}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -32,9 +42,9 @@
           <img src="{% static 'post_images/post_default.jpg' %}" alt="Imagen por defecto" class="w-full max-h-64 object-cover rounded">
         {% endif %}
 
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ post.title }}</h2>
-        <p class="text-sm text-gray-600 dark:text-gray-300">{{ post.created_at|date:"d M Y" }} por {{ post.author }}</p>
-        <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+        <h2 class="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">{{ post.title }}</h2>
+        <p class="text-sm text-indigo-400 dark:text-indigo-700">{{ post.created_at|date:"d M Y" }} por {{ post.author }}</p>
+        <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed break-words whitespace-pre-wrap">
           {{ post.content|truncatewords:30 }}
         </p>
         <a href="{% url 'post_detail' post.slug %}" class="text-blue-600 hover:underline mt-auto">
