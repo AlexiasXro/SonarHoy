@@ -1,6 +1,10 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic.edit import FormMixin
+from .forms import CommentForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 
 class PostListView(ListView):
     model = Post
@@ -9,10 +13,58 @@ class PostListView(ListView):
     ordering = ['-created_at']
     paginate_by = 6 
 
-class PostDetailView(DetailView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_slug = self.kwargs.get('category_slug')
+        if category_slug:
+            category = get_object_or_404(Category, name=category_slug)
+            queryset = queryset.filter(category=category)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['selected_category'] = self.kwargs.get('category_slug')
+        return context
+
+
+class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = 'post_detail.html'
     context_object_name = 'post'
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return self.request.path
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.all()
+        context['comment_form'] = self.get_form()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.post = self.object
+            comment.save()
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+@login_required
+def toggle_like(request, slug):
+        post = get_object_or_404(Post, slug=slug)
+        if request.user in post.likes.all():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+        return redirect('post_detail', slug=slug)
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post

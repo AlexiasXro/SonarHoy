@@ -42,6 +42,10 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='posts') #TODO related name no deberia ser category?
     allow_comments = models.BooleanField(default=True)
     slug = models.SlugField(max_length=200, unique=True, blank=False)
+    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
