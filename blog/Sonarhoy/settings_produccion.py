@@ -1,5 +1,8 @@
 from os import getenv
 import os
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv('SECRET_KEY')
@@ -7,7 +10,7 @@ if SECRET_KEY is None:
     raise ValueError("The SECRET_KEY environment variable is not set.")
 
 # TODO: Agrega aquí tus dominios permitidos
-ALLOWED_HOSTS = ['127.0.0.1', 'midominio-production.com']
+ALLOWED_HOSTS = ['127.0.0.1', ' deidad2028.pythonanywhere.com']
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -28,20 +31,21 @@ DATABASES = {
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
     }
 }
 
-os.environ['DJANGO_PORT'] = '8080'
+# os.environ['DJANGO_PORT'] = '8080'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 # TODO: URL para acceder a los archivos estáticos
-STATIC_URL = 'static/'
-# TODO: Define el directorio donde se recopilarán los archivos estáticos en producción
-STATIC_ROOT = None
-# TODO: Ruta donde se encuentran los archivos subidos por los usuarios
-MEDIA_ROOT = None
-# TODO: URL para acceder a los archivos subidos por los usuarios
-MEDIA_URL = None
+# URL pública para acceder a archivos estáticos
+STATIC_URL = '/static/'
+
+# Carpeta donde se recopilarán todos los archivos estáticos para producción
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Archivos de medios (subidos por usuarios)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
