@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path, include
+
 
 
 urlpatterns = [
@@ -28,6 +30,9 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
     path('contacto/', include('apps.contacto_admin.urls')), 
     path('', include('apps.home.urls')),
+    path('quienes_somos/', include('apps.quienes_somos.urls')),
+    path('agenda/', include('apps.agenda.urls')),
+
 ]
 
 if settings.DEBUG:

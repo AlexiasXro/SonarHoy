@@ -49,6 +49,13 @@ INSTALLED_APPS = [
     'apps.contacto_admin',
     'apps.user',
     'apps.post',
+
+    'apps.contacto_admin',
+    'apps.home',
+    'apps.quienes_somos',
+    'apps.agenda',
+
+
 ]
 
 MIDDLEWARE = [
