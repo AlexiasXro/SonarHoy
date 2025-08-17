@@ -1,27 +1,30 @@
- {% load static %}
- 
- <!-- Footer con redes sociales, enlaces y derechos reservados -->
-  <footer class="bg-[#4d4d4d] text-white mt-20">
-    <div class="max-w-7xl mx-auto py-6 px-4 grid grid-cols-3 gap-4 text-sm">
-      <!-- Íconos de redes sociales -->
-      <div class="flex items-center gap-3">
-        <a href="https://goo.su/GYWwzjZ" target="_blank" rel="noopener noreferrer">
-         <img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-8 h-8" />
-        </a>
-        <a href="https://x.com/CarpinchOSg2" target="_blank" rel="noopener noreferrer">
-          <img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-8 h-8" />
-        </a>
-        <a href="https://www.youtube.com/@CarpinchOSg2" target="_blank" rel="noopener noreferrer">
-          <img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-8 h-8" />
-        </a>
-       <a href="https://www.tiktok.com/@carpinchosg2" target="_blank" rel="noopener noreferrer">
-         <img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-8 h-8" />
-       </a>
-      </div>      
+{% load static %}
 
-      <!-- Enlaces rápidos -->
-      <div class="grid grid-cols-2 gap-2">
-        <div>
+
+<!-- Footer con redes sociales, enlaces y derechos reservados -->
+<footer class="bg-[#4d4d4d] text-white mt-20">
+  <div class="max-w-7xl mx-auto py-6 px-4 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+    
+    <!-- Íconos de redes sociales -->
+    <div class="flex items-center justify-center md:justify-start gap-3">
+      <a href="https://goo.su/GYWwzjZ" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-8 h-8" />
+      </a>
+      <a href="https://x.com/CarpinchOSg2" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-8 h-8" />
+      </a>
+      <a href="https://www.youtube.com/@CarpinchOSg2" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-8 h-8" />
+      </a>
+      <a href="https://www.tiktok.com/@carpinchosg2" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-8 h-8" />
+      </a>
+    </div>      
+
+    <!-- Enlaces rápidos -->
+    <div class="grid grid-cols-2 gap-2 text-center md:text-left">
+      <div>
+      
           <p>• Noticias</p>
           <p><a href="{% url 'agenda' %}" class="text-sm font-semibold text-white-600 dark:text-white-300">• Agenda</a></p>
         </div>
@@ -30,10 +33,18 @@
           <p><a href="{% url 'quienes_somos' %}" class="text-sm font-semibold text-white-600 dark:text-white-300">• Quienes somos</a></p>
         </div>
       </div>
-      <!-- Logo y derechos -->
-      <div class="text-right flex flex-col items-end justify-center">
-        <img src="/static/img/sh.png" alt="Logo Sonar Hoy" class="w-16 h-auto" />
-        <p class="text-xs mt-1">&copy; 2025 Sonar Hoy. <br />®Todos los derechos reservados.</p>
-      </div>      
+     
+      </div>
     </div>
-  </footer>
+
+    <!-- Logo y derechos -->
+    <div class="flex flex-col items-center md:items-end justify-center text-center md:text-right">
+      <a href="{% url 'home' %}">
+        <img src="/static/img/sh.png" alt="Logo Sonar Hoy" class="w-16 h-auto" />
+      </a>
+      <p class="text-xs mt-1">&copy; 2025 Sonar Hoy. <br />®Todos los derechos reservados.</p>
+    </div>      
+
+  </div>
+</footer>
+  

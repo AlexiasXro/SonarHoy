@@ -1,0 +1,117 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto bg-white dark:bg-gray-900 p-8 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
+
+  <h1 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{{ post.title }}</h1>
+  <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">
+    Publicado el {{ post.created_at|date:"d M Y" }} por {{ post.author }}
+  </p>
+
+  {% if post.image %}
+  <img src="{{ post.image.url }}" class="w-full max-h-64 object-cover rounded mb-4" />
+  {% else %}
+  <img src="{% static 'post_images/post_default.jpg' %}" alt="Imagen por defecto" class="mb-4">
+  {% endif %}
+
+  <div class="prose prose-lg dark:prose-invert max-w-4xl mx-auto break-words whitespace-pre-wrap mb-6">
+    {{ post.content|linebreaks }}
+  </div>
+
+  <div class="flex justify-end mb-4">
+    <form action="{% url 'toggle_like' post.slug %}" method="post" class="flex">
+      {% csrf_token %}
+      <button type="submit" class="block px-4 py-2 rounded border-2 border-indigo-600
+        {% if user in post.likes.all %}
+          text-red-500 hover:bg-red-700
+        {% else %}
+          text-gray-500 hover:bg-red-700
+        {% endif %}">
+        ❤️ {{ post.total_likes }} Me gusta
+      </button>
+    </form>
+  </div>
+
+  {% if user.is_authenticated and post.author == user %}
+  <div class="flex flex-wrap gap-4 mt-4 mb-6">
+    <a href="{% url 'post_update' post.slug %}" class="px-4 py-2 bg-indigo-700 text-white rounded hover:bg-indigo-500 transition">✏️ Editar</a>
+    <a href="{% url 'post_delete' post.slug %}" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">🗑️ Eliminar</a>
+    <a href="{% url 'post_list' %}" class="px-4 py-2 bg-indigo-700 text-white rounded hover:bg-indigo-500 transition">← Volver</a>
+  </div>
+  {% else %}
+  <p class="text-red-600 mt-4 mb-6">No tienes permiso para editar o eliminar este post.</p>
+  <a href="{% url 'post_list' %}" class="px-4 py-2 bg-indigo-700 text-white rounded mt-2 inline-block mb-6">Volver</a>
+  {% endif %}
+
+  <!-- Bloque de comentarios y formulario -->
+  <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border-2 border-indigo-600">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Comentarios</h2>
+
+    {% if comments %}
+    <ul class="space-y-4 mb-6">
+      {% for comentario in comments %}
+      <li class="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow-sm relative">
+
+        <!-- Avatar y nombre de usuario -->
+        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+          <img 
+            src="{% if comentario.author.profile.avatar %}{{ comentario.author.profile.avatar.url }}{% else %}{% static 'icons/user-profile.png' %}{% endif %}" 
+            alt="Avatar de {{ comentario.author.username }}" 
+            class="w-8 h-8 object-cover rounded-full"
+            onerror="this.onerror=null;this.src='{% static 'icons/user-profile.png' %}';"
+          />
+          <span class="text-indigo-700 dark:text-indigo-400 font-semibold">{{ comentario.author.username }}</span>
+          <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">comentó el {{ comentario.created_at|date:"d M Y H:i" }}</span>
+        </div>
+
+        <p class="mt-2 text-gray-900 dark:text-white">{{ comentario.content }}</p>
+
+        {% if comentario.author == request.user %}
+        <div class="absolute top-2 right-2 flex gap-2">
+          <button type="button" onclick="toggleEdit('{{ comentario.id }}')" class="text-[#93278f] hover:underline text-xs font-medium">Editar</button>
+          <form method="post" class="inline">
+            {% csrf_token %}
+            <input type="hidden" name="delete_comment_id" value="{{ comentario.id }}">
+            <button type="submit" class="text-red-600 hover:underline text-xs font-medium">Eliminar</button>
+          </form>
+        </div>
+
+        <!-- Formulario de edición oculto -->
+        <form method="post" id="edit-comment-{{ comentario.id }}" class="hidden mt-2">
+          {% csrf_token %}
+          <input type="hidden" name="edit_comment_id" value="{{ comentario.id }}">
+          <textarea name="edit_comment_content_{{ comentario.id }}" class="w-full p-2 rounded">{{ comentario.content }}</textarea>
+          <button type="submit" class="bg-indigo-700 text-white py-1 px-3 rounded mt-1 text-xs">Guardar</button>
+        </form>
+        {% endif %}
+
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-gray-500 dark:text-gray-400 mb-6">Aún no hay comentarios. ¡Sé el primero en opinar!</p>
+    {% endif %}
+
+    <!-- Formulario de nuevo comentario -->
+    <h3 class="text-lg font-semibold text-indigo-700 dark:text-indigo-300 mb-4">Agregar un comentario</h3>
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit" class="bg-indigo-700 hover:bg-indigo-600 text-white font-semibold px-4 py-2 rounded">
+        Publicar
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+function toggleEdit(commentId) {
+  const form = document.getElementById(`edit-comment-${commentId}`);
+  form.classList.toggle('hidden');
+}
+</script>
+
+{% endblock %}

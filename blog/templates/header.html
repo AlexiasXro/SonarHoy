@@ -3,43 +3,45 @@
 <!-- Banner grande que también redirige al inicio -->
 <section class="w-full h-24 md:h-32 bg-[#93278f] flex justify-center items-center">
   <a href="{% url 'home' %}">
-    <img src="{% static 'img/Marca_1.png' %}" alt="Banner" class="h-20 md:h-24 object-contain cursor-pointer" />
+    <img src="{% static 'img/Marca_1.png' %}" alt="Banner" class="h-16 md:h-24 object-contain cursor-pointer" />
   </a>
 </section>
 
 <!-- Redes sociales -->
 <div class="w-full bg-[#93278f] py-1 px-4">
-  <div class="max-w-7xl mx-auto flex justify-between items-center">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
     <!-- Redes -->
-    <div class="flex gap-4">
+    <div class="flex gap-3 sm:gap-4">
       <a href="https://goo.su/GYWwzjZ" target="_blank" rel="noopener noreferrer">
-        <img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-8 h-8" />
+        <img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-6 h-6 sm:w-8 sm:h-8" />
       </a>
       <a href="https://x.com/CarpinchOSg2" target="_blank" rel="noopener noreferrer">
-        <img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-8 h-8" />
+        <img src="{% static 'icons/boton_x.png' %}" alt="X/Twitter" class="w-6 h-6 sm:w-8 sm:h-8" />
       </a>
       <a href="https://www.youtube.com/@CarpinchOSg2" target="_blank" rel="noopener noreferrer">
-        <img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-8 h-8" />
+        <img src="{% static 'icons/boton_yt.png' %}" alt="YouTube" class="w-6 h-6 sm:w-8 sm:h-8" />
       </a>
       <a href="https://www.tiktok.com/@carpinchosg2" target="_blank" rel="noopener noreferrer">
-        <img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-8 h-8" />
+        <img src="{% static 'icons/boton_tiktok.png' %}" alt="TikTok" class="w-6 h-6 sm:w-8 sm:h-8" />
       </a>
     </div>
 
     <!-- Buscador -->
-    <input type="text" placeholder="Buscar..." class="rounded border px-2 py-1 text-sm w-48 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+    <input type="text" placeholder="Buscar..." 
+      class="rounded border px-2 py-1 text-sm w-full sm:w-48 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
   </div>
 </div>
 
 <!-- Header con navegación -->
 <header class="bg-gray-300 dark:bg-gray-900 shadow">
-  <div class="max-w-7xl mx-auto relative flex items-center justify-between px-4 py-3">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between px-4 py-3 gap-2">
 
     <!-- Modo oscuro -->
     <div class="flex items-center gap-2 relative z-10">
       <label class="toggle text-base-content cursor-pointer flex items-center gap-1" title="Modo oscuro">
         <input id="darkCheckbox" type="checkbox" class="theme-controller" />
-        <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+             class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2"></path>
           <path d="M12 20v2"></path>
@@ -50,13 +52,15 @@
           <path d="m6.34 17.66-1.41 1.41"></path>
           <path d="m19.07 4.93-1.41 1.41"></path>
         </svg>
-        <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+             class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
       </label>
     </div>
 
     <!-- Navegación -->
+
       <nav class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-2">
         <div class="inline-flex items-center space-x-2 text-center">
     
@@ -83,10 +87,11 @@
     aria-labelledby="menu-button"
   >
     <div class="py-1" role="none">
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Actualidad</a>
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Recitales</a>
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Descubrir</a>
-      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Entrevistas</a>
+      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Todo</a>
+      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Actualidad</a>
+      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Recitales</a>
+      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Descubrir</a>
+      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Entrevistas</a>
     </div>
   </div>
 </div>
@@ -118,31 +123,46 @@
   </nav>
 
 
-    <!-- Botones usuario -->
-    <div class="flex items-center gap-3">
-     {% if user.is_authenticated %}
-      <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Mi Perfil</a>
-      <a href="{% url 'user:logout' %}" class="text-sm bg-red-500 text-white px-3 py-1 rounded">Cerrar sesión</a>
-     {% else %}
-      {% if request.path == '/login/' %}
-        <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
-      {% elif request.path == '/register/' %}
-        <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
-      {% else %}
-        <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
-       <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
-      {% endif %}
-    {% endif %}
-</div>
 
-    
+    <!-- Botones usuario -->
+    <div class="flex items-center gap-2 flex-wrap justify-center">
+      {% if user.is_authenticated %}
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
+          <img 
+            src="{{ user.profile.avatar.url }}" 
+            alt="Avatar de {{ user.username }}" 
+            class="w-8 h-8 object-cover rounded-full" 
+            onerror="this.onerror=null;this.src='{% static 'icons/user-profile.png' %}';" 
+          />
+        {% endif %}
+
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'profile' %}
+          <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-900">Mi Perfil</a>
+        {% elif request.resolver_match.url_name == 'profile' %}
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-900">Cerrar sesión</a>
+        {% endif %}
+
+      {% elif request.session.guest_user %}
+        <!-- Invitado -->
+        <img 
+          src="{% static 'icons/user-profile.png' %}" 
+          alt="Avatar Invitado" 
+          class="w-8 h-8 object-cover rounded-full" 
+        />
+        <span class="text-indigo-600 dark:text-indigo-300 font-semibold select-none">Invitado</span>
+        <a href="{% url 'user:login' %}" class="ml-3 text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar sesión</a>
+        <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
+
+      {% else %}
+        {% if request.resolver_match.url_name == 'login' %}
+          <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
+        {% elif request.resolver_match.url_name == 'register' %}
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
+        {% else %}
+          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Iniciar Sesión</a>
+          <a href="{% url 'user:register' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded">Registrarse</a>
+        {% endif %}
+      {% endif %}
+    </div>
   </div>
 </header>
-
- 
-  <header class="bg-gray-300 dark:bg-gray-900 shadow">
-    <div class="max-w-7xl mx-auto relative flex items-center justify-between px-4 py-3">
-
-
-    </div>
-  </header>

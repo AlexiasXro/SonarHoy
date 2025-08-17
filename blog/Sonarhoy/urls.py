@@ -25,7 +25,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('apps.user.urls')),
-    # path('post/', include('apps.post.urls')),
+
+    path('post/', include('apps.post.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
     path('contacto/', include('apps.contacto_admin.urls')), 
     path('', include('apps.home.urls')),
@@ -33,5 +34,6 @@ urlpatterns = [
     path('agenda/', include('apps.agenda.urls')),
 
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

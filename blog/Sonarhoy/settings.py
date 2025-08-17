@@ -46,13 +46,15 @@ INSTALLED_APPS = [
 
     'django_browser_reload',
 
-
+    'apps.contacto_admin',
     'apps.user',
     'apps.post',
+
     'apps.contacto_admin',
     'apps.home',
     'apps.quienes_somos',
     'apps.agenda',
+
 
 ]
 
@@ -108,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = 'user:profile'
+LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'user:login'
 
@@ -128,6 +130,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+#FIXME CAMBIO PARA VER IMAGEN
+#STATIC_URL = '/Static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
