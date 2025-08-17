@@ -39,9 +39,9 @@
               <img src="{% static 'img/placeholder.jpg' %}" alt="Noticia" class="w-full h-40 object-cover rounded mb-3" />
             {% endif %}
             <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-300 mb-2">{{ post.title }}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 flex-1">
+            <!-- <p class="text-sm text-gray-600 dark:text-gray-400 flex-1">
               {{ post.summary|default:"Sin resumen disponible." }}
-            </p>
+            </p> -->
             <a href="{% url 'post_detail' post.slug %}" class="mt-3 text-indigo-700 dark:text-indigo-300 hover:underline text-sm">
               Leer más
             </a>
