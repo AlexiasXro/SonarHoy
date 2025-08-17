@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'apps.user',
     'apps.post',
 
-    'apps.contacto_admin',
+    
     'apps.home',
     'apps.quienes_somos',
     'apps.agenda',

@@ -1,0 +1,43 @@
+<div class="relative inline-block text-left">
+          <button type="button"
+            class="flex items-center text-sm font-semibold text-indigo-600 font-semibold hover:text-indigo-300 focus:outline-none"
+            id="menu-button" aria-expanded="false" aria-haspopup="true">
+            Noticias
+            <svg class="text-sm font-semibold text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Menú desplegable -->
+          <div class="hidden absolute mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
+            id="menu-dropdown" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+            <div class="py-1" role="none">
+              <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100"
+                role="menuitem">Todo</a>
+              <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100"
+                role="menuitem">Actualidad</a>
+              <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100"
+                role="menuitem">Recitales</a>
+              <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100"
+                role="menuitem">Descubrir</a>
+              <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100"
+                role="menuitem">Entrevistas</a>
+            </div>
+          </div>
+
+           <script>
+          const menuButton = document.getElementById('menu-button');
+          const menuDropdown = document.getElementById('menu-dropdown');
+
+          menuButton.addEventListener('click', () => {
+            menuDropdown.classList.toggle('hidden');
+          });
+
+          // Cerrar menú al hacer click fuera
+          document.addEventListener('click', (e) => {
+            if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
+              menuDropdown.classList.add('hidden');
+            }
+          });
+        </script>

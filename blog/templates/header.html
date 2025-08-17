@@ -1,5 +1,7 @@
 {% load static %}
 
+
+
 <!-- Banner grande que también redirige al inicio -->
 <section class="w-full h-24 md:h-32 bg-[#93278f] flex justify-center items-center">
   <a href="{% url 'home' %}">
@@ -11,7 +13,7 @@
 <div class="w-full bg-[#93278f] py-1 px-4">
   <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
     <!-- Redes -->
-    <div class="flex gap-3 sm:gap-4">
+ <div class="flex gap-3 sm:gap-4">
       <a href="https://goo.su/GYWwzjZ" target="_blank" rel="noopener noreferrer">
         <img src="{% static 'icons/boton_ig.png' %}" alt="Instagram" class="w-6 h-6 sm:w-8 sm:h-8" />
       </a>
@@ -59,70 +61,18 @@
       </label>
     </div>
 
-    <!-- Navegación -->
-
-      <nav class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-2">
-        <div class="inline-flex items-center space-x-2 text-center">
+   
     
-          <div class="relative inline-block text-left">
-  <button 
-    type="button" 
-    class="flex items-center text-sm font-semibold text-indigo-600 font-semibold hover:text-indigo-300 focus:outline-none"
-    id="menu-button" 
-    aria-expanded="false" 
-    aria-haspopup="true"
-  >
-    Noticias
-    <svg class="text-sm font-semibold text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
-
-  <!-- Menú desplegable -->
-  <div 
-    class="hidden absolute mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50" 
-    id="menu-dropdown"
-    role="menu" 
-    aria-orientation="vertical" 
-    aria-labelledby="menu-button"
-  >
-    <div class="py-1" role="none">
-      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Todo</a>
-      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Actualidad</a>
-      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Recitales</a>
-      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Descubrir</a>
-      <a href="{% url 'post_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-violet-100" role="menuitem">Entrevistas</a>
-    </div>
-  </div>
-</div>
-
-<script>
-  const menuButton = document.getElementById('menu-button');
-  const menuDropdown = document.getElementById('menu-dropdown');
-
-  menuButton.addEventListener('click', () => {
-    menuDropdown.classList.toggle('hidden');
-  });
-
-  // Cerrar menú al hacer click fuera
-  document.addEventListener('click', (e) => {
-    if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
-      menuDropdown.classList.add('hidden');
-    }
-  });
-</script>
-
-
-      <span class="text-gray-300">|</span>
+    <!-- Navegación -->
+    <nav class="flex flex-wrap justify-center text-center gap-2">
+      <a href="{% url 'post_list' %}" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Noticias</a>
+      <span class="hidden sm:inline text-gray-300">|</span>
       <a href="{% url 'agenda' %}" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Agenda</a>
-      <span class="text-gray-300">|</span>
+      <span class="hidden sm:inline text-gray-300">|</span>
       <a href="{% url 'contacto_admin' %}" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Contacto</a>
-      <span class="text-gray-300">|</span>
+      <span class="hidden sm:inline text-gray-300">|</span>
       <a href="{% url 'quienes_somos' %}" class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Quienes somos</a>
-    </div>
-  </nav>
-
-
+    </nav>
 
     <!-- Botones usuario -->
     <div class="flex items-center gap-2 flex-wrap justify-center">
@@ -166,3 +116,8 @@
     </div>
   </div>
 </header>
+
+
+
+
+    
