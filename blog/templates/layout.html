@@ -5,6 +5,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="keywords" content="música, noticias, bandas, conciertos, SonarHoy">
+  {% block meta %}
+    <meta name="description" content="Noticias de música, bandas y conciertos en SonarHoy.">
+    <meta property="og:title" content="SonarHoy - Noticias de música y conciertos">
+    <meta property="og:description" content="Noticias de música, bandas y conciertos en SonarHoy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri|default:'' }}">
+    <meta property="og:image" content="{% static 'img/logo.png' %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SonarHoy - Noticias de música y conciertos">
+    <meta name="twitter:description" content="Noticias de música, bandas y conciertos en SonarHoy.">
+    <meta name="twitter:image" content="{% static 'img/logo.png' %}">
+    <link rel="canonical" href="{{ request.build_absolute_uri|default:'' }}">
+  {% endblock %}
+
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon.png' %}">
+<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png">
   <title>{{ title|default:"SonarHoy" }}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>

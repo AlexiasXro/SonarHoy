@@ -1,4 +1,46 @@
 {% extends 'layout.html' %}
+
+{% block title %}{{ post.title }} | SonarHoy{% endblock %}
+
+{% block meta %}
+  <meta name="description" content="{{ post.excerpt|truncatewords:25 }} - Lee más en SonarHoy">
+  <meta property="og:title" content="{{ post.title }} | SonarHoy">
+  <meta property="og:description" content="{{ post.excerpt|truncatewords:25 }}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:image" content="{{ post.image.url|default:'/static/post/default/post_default.png' }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ post.title }} | SonarHoy">
+  <meta name="twitter:description" content="{{ post.excerpt|truncatewords:25 }}">
+  <meta name="twitter:image" content="{{ post.image.url|default:'/static/post/default/post_default.png' }}">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+  <!-- 🔽 SEO Avanzado: Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ post.title|escapejs }}",
+    "description": "{{ post.excerpt|truncatewords:25|escapejs }}",
+    "image": "{{ post.image.url|default:'/static/post/default/post_default.png' }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ post.author }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SonarHoy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{% static 'img/logo.png' %}"
+      }
+    },
+    "datePublished": "{{ post.created_at|date:'Y-m-d' }}",
+    "dateModified": "{{ post.updated_at|date:'Y-m-d' }}"
+  }
+  </script>
+{% endblock %}
+
 {% load static %}
 
 {% block content %}
