@@ -1,18 +1,19 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category
+from .models import Post, Category, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
 from .forms import CommentForm
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+import uuid
+
 
 class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
-  
     context_object_name = 'posts'
     ordering = ['-created_at']
-    paginate_by = 6 
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -43,11 +44,35 @@ class PostDetailView(FormMixin, DetailView):
         context['comments'] = self.object.comments.all()
         context['comment_form'] = self.get_form()
         return context
-    
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = self.get_form()
 
+    
+        # Eliminar comentario inline
+        delete_comment_id = request.POST.get('delete_comment_id')
+        if delete_comment_id:
+            comment = get_object_or_404(Comment, pk=uuid.UUID(delete_comment_id))
+            if comment.author == request.user:
+                comment.delete()
+            return redirect(self.get_success_url())
+
+       
+        # Editar comentario inline
+        edit_comment_id = request.POST.get('edit_comment_id')
+        if edit_comment_id:
+            comment = get_object_or_404(Comment, pk=uuid.UUID(edit_comment_id))
+            if comment.author == request.user:
+                # Tomar contenido del textarea correspondiente
+                new_content = request.POST.get(f'edit_comment_content_{edit_comment_id}')
+                if new_content:
+                    comment.content = new_content
+                    comment.save()
+            return redirect(self.get_success_url())
+
+       
+        # Crear nuevo comentario
+        form = self.get_form()
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
@@ -57,14 +82,15 @@ class PostDetailView(FormMixin, DetailView):
         else:
             return self.form_invalid(form)
 
+
 @login_required
 def toggle_like(request, slug):
-        post = get_object_or_404(Post, slug=slug)
-        if request.user in post.likes.all():
-            post.likes.remove(request.user)
-        else:
-            post.likes.add(request.user)
-        return redirect('post_detail', slug=slug)
+    post = get_object_or_404(Post, slug=slug)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('post_detail', slug=slug)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -82,16 +108,13 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ['title', 'content']
     template_name = 'post_update.html'
 
-#FIXME: el form_valid en update dice que no hace falta
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
+        return self.request.user == post.author
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -101,6 +124,4 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
+        return self.request.user == post.author
