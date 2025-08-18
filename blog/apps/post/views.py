@@ -74,8 +74,12 @@ class PostDetailView(FormMixin, DetailView):
         # Crear nuevo comentario
         form = self.get_form()
         if form.is_valid():
+            if not request.user.is_authenticated:
+                # Redirigir al login si el usuario no está autenticado
+                return redirect('user:login')
+            
             comment = form.save(commit=False)
-            comment.author = request.user
+            comment.author = request.user  # Seguro ahora
             comment.post = self.object
             comment.save()
             return super().form_valid(form)

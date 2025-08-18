@@ -15,7 +15,8 @@
 <meta name="twitter:image" content="{{ post.image.url|default:'/static/post/default/post_default.png' }}">
 <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
-<!-- 🔽 SEO Avanzado: Schema.org -->
+{% load static %} 
+
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,9 +40,10 @@
     "dateModified": "{{ post.updated_at|date:'Y-m-d' }}"
   }
   </script>
+  
 {% endblock %}
 
-{% load static %}
+
 
 {% block content %}
 
@@ -106,7 +108,7 @@
   src="{% if comentario.author.profile.avatar %}{{ comentario.author.profile.avatar.url }}{% else %}{% static 'icons/user-profile.png' %}{% endif %}" 
   alt="Avatar de {{ comentario.author.username }}" 
   class="w-8 h-8 object-cover rounded-full"
-  onerror="this.onerror=null;this.src='{% static 'icons/user-profile.png' %}';"
+  onerror="this.onerror=null;this.src={% static 'icons/user-profile.png' %}";"
 />
           <span class="text-indigo-700 dark:text-indigo-400 font-semibold">{{ comentario.author.username }}</span>
           <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">comentó el {{ comentario.created_at|date:"d M Y

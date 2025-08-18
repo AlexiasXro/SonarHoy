@@ -89,7 +89,12 @@
         {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'profile' %}
           <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-900">Mi Perfil</a>
         {% elif request.resolver_match.url_name == 'profile' %}
-          <a href="{% url 'user:login' %}" class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-900">Cerrar sesión</a>
+          <!-- <a href="{% url 'user:logout' %}" class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-900">Cerrar sesión</a> -->
+          <form action="{% url 'user:logout' %}" method="post">
+            {% csrf_token %}
+            <input class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-900" type="submit" value="Cerrar sesión">
+          </form>
+
         {% endif %}
 
       {% elif request.session.guest_user %}
