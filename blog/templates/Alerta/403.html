@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- blog/templates/Alerta/403.html -->
+{% load static %}
+
+{% block title %}Acceso Denegado - Sonarhoy{% endblock %}
+
+<div class="text-center py-16">
+    <h1 class="text-4xl font-bold text-red-600 mb-4">🚫 Acceso denegado</h1>
+    <p class="text-gray-700 dark:text-gray-300 mb-6">
+        No tienes permiso para realizar esta acción.
+    </p>
+    <a href="{% url 'post_list' %}" class="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-900">
+        Volver a publicaciones
+    </a>
+</div>
+{% endblock %}

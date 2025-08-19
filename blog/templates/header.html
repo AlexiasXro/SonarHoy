@@ -76,6 +76,10 @@
 
     <!-- Botones usuario -->
     <div class="flex items-center gap-2 flex-wrap justify-center">
+      
+      <!-- Tipo de usuario  -->
+      <p class="text-indigo-300 font-light ">{{ user.user_type }}</p>
+
       {% if user.is_authenticated %}
         {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
           <img 

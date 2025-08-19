@@ -2,6 +2,7 @@ from . import views
 from django.urls import path
 from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, toggle_like  
 
+
 urlpatterns = [
     path('', PostListView.as_view(), name='post_list'),
     path('new/', PostCreateView.as_view(), name='post_create'),
@@ -11,3 +12,4 @@ urlpatterns = [
     path('<slug:slug>/like/', toggle_like, name='toggle_like'),
     path('categoria/<str:category_slug>/', PostListView.as_view(), name='post_list_by_category'),
 ]
+

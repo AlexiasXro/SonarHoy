@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(
@@ -42,3 +43,8 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 
 
 
+def get_user_type(user):
+    grupos = user.groups.all()
+    if grupos.exists():
+        return grupos[0].name  # tomamos el primer grupo asignado
+    return "Sin grupo"

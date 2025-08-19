@@ -1,18 +1,39 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="relative">
+
+  <!-- Título arriba centrado -->
+  <h1 class="w-full text-center text-3xl md:text-4xl font-base text-indigo-600 mb-8 drop-shadow select-none">
+    {{ title }}
+  </h1>
 <div class="relative flex flex-col items-center gap-8 mt-16 md:flex-row md:justify-center md:items-start">
   <!-- Perfil -->
+ 
   <div class="w-full max-w-md bg-white dark:bg-gray-800 border-2 border-indigo-600 rounded-xl shadow-lg p-6 text-center">
-    <h1 class="text-3xl md:text-4xl font-base text-indigo-600 mb-4 drop-shadow select-none">{{ title }}</h1>
     <h2 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">¡Hola, {{ request.user.username }}!</h2>
 
     <div class="w-32 h-32 mx-auto mb-6 relative">
+
       <img src="{{ comentario.author.profile.avatar.url }}?{{ comentario.author.profile.updated_at.timestamp }}" alt="Avatar"
         class="rounded-full w-32 h-32 object-cover mx-auto border-2 border-indigo-600 shadow select-none" />
     </div>
 
-    <p class="text-gray-700 dark:text-gray-200 mb-6 text-lg">Estás conectado a tu cuenta.</p>
+    <!-- Grupos del usuario -->
+     <div class="flex flex-wrap justify-center items-center gap-2 mb-2">
+
+       {% for group in user.groups.all %}
+       <span class="badge text-indigo-500 font-semibold p-4 ">{{ group.name }}</span>
+       {% empty %}
+       <span class="badge text-red-600 p-4">Sin grupo</span>
+       {% endfor %}
+     </div>
+
+    
+    <button id="toggle-edit-profile"
+      class="bg-indigo-700 text-white font-semibold  mb-4 py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg w-full">
+      Editar perfil
+    </button>
 
     <form action="{% url 'user:password_change' %}" method="get" class="mb-4">
       <button type="submit"
@@ -21,10 +42,6 @@
       </button>
     </form>
 
-    <button id="toggle-edit-profile"
-      class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg w-full">
-      Editar perfil
-    </button>
   </div>
 
   <!-- Formulario de edición -->
@@ -44,6 +61,7 @@
         <img id="avatar-image" src="{{ request.user.profile.avatar.url }}" alt="Avatar"
           class="rounded-full w-32 h-32 object-cover mx-auto border-2 border-indigo-600 shadow transition hover:ring-4 hover:ring-indigo-400" />
       </div>
+
       <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">Haz clic en la imagen para cambiar tu avatar</p>
 
       <!-- Input oculto para avatar -->
@@ -55,6 +73,7 @@
         class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer mt-4 w-full text-lg" />
     </form>
   </div>
+</div>
 </div>
 
 <script>
@@ -77,6 +96,7 @@
 
   // Avatar editable solo dentro del formulario
   const avatarImage = document.getElementById('avatar-image');
+  
   const avatarContainer = document.getElementById('avatar-container');
   const fileInput = document.getElementById('id_avatar');
 

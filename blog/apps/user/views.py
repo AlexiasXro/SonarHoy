@@ -144,3 +144,17 @@ class ProfileView(LoginRequiredMixin, generic.UpdateView):
             avatar_form.save()
             return self.form_valid(user_form)
         return self.form_invalid(user_form)
+
+# apps/user/views.py
+from django.shortcuts import render
+
+def perfil(request):
+    user = request.user
+    grupos = user.groups.all()  # queryset de grupos
+    return render(request, "user/perfil.html", {"user": user, "grupos": grupos})
+
+def user_type(self):
+    g = self.groups.first()
+    return g.name if g else "Sin grupo"
+
+User.add_to_class("user_type", user_type)

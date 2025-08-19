@@ -20,12 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
+from django.shortcuts import render
 
+from apps.post.views import handler403  # importar la función
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('apps.user.urls')),
-
     path('post/', include('apps.post.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
     path('contacto/', include('apps.contacto_admin.urls')), 
@@ -34,6 +35,9 @@ urlpatterns = [
     path('agenda/', include('apps.agenda.urls')),
 
 ]
+
+# Registrar handler global
+handler403 = handler403
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
