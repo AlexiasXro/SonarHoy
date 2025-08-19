@@ -102,10 +102,7 @@ class PostDetailView(FormMixin, DetailView):
 def toggle_like(request, slug):
     post = get_object_or_404(Post, slug=slug)
 
-    # Verificar si el usuario tiene permiso para agregar "Me gusta"
-    if not request.user.has_perm('post.add_like'):
-        return redirect('post_detail', slug=slug)
-
+   
     if request.user in post.likes.all():
         post.likes.remove(request.user)
     else:
