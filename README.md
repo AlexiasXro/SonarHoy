@@ -1,10 +1,10 @@
-🌟 SonarHoy
+# 🌟 SonarHoy
 
-SonarHoy es una plataforma web de noticias y agendas desarrollada en Django y Tailwind CSS, que permite publicar contenido, interactuar mediante comentarios y "likes", y gestionar perfiles de usuario de forma segura y moderna.
+### SonarHoy es una plataforma web de noticias y agendas desarrollada en Django ,MySQL, Tailwind CSS, que permite publicar contenido, interactuar mediante comentarios y "likes", y gestionar perfiles de usuario de forma segura y moderna.
 
 ---
 
-🚀 Características
+## 🚀 Características
 
 - Gestión de publicaciones: Crear, editar y eliminar posts con imágenes y categorías.
 - Sistema de comentarios: Comentarios inline con opción de edición y eliminación.
@@ -16,17 +16,18 @@ SonarHoy es una plataforma web de noticias y agendas desarrollada en Django y Ta
 
 ---
 
-🛠 Tecnologías
+## 🛠 Tecnologías
 
 - Backend: Django 5.2+
 - Frontend: HTML5, Tailwind CSS, JavaScript
-- Base de datos: SQLite / PostgreSQL (configurable)
+- Base de datos: SQLite / PostgreSQL /MySQL (configurable)
 - Control de versiones: Git & GitHub
 - Dependencias y entorno: Python 3.12+, Pipenv
 
 ---
 
-📂 Estructura del proyecto
+```
+ 📂 Estructura del proyecto
 
 SonarHoy/
 ├─ blog/
@@ -42,18 +43,20 @@ SonarHoy/
 ├─ Pipfile
 ├─ .env.example
 └─ manage.py
+```
 
 ---
-# Usuarios del Sistema
+##   Usuarios del Sistema
 
 El sistema cuenta con los siguientes usuarios preconfigurados:
 
 | Usuario                      | Contraseña  | Rol/Grupo      | 
 |------------------------------|-------------|----------------|
 | Name-Miembro                 | facil123    | Miembros       |
-| Name-Colaborador             | facil123    | Colaboradores  | 
-| Super-duper-master-capo      | facil123    | Admin          | 
+| NAME-Colaborador             | facil123    | Colaboradores  | 
+| Super-duper-master-capo      | facil123    | Admin          | (sin función)
 | *****                        | ******      | Admin-Django   | 
+
 
 ## Notas sobre permisos
 
@@ -74,32 +77,9 @@ El sistema cuenta con los siguientes usuarios preconfigurados:
   - Acceso a configuraciones críticas y permisos del sistema.
 ---
 
-⚡ Instalación
 
-1. Clonar el repositorio:
-git clone https://github.com/AlexiasXro/SonarHoy.git
-cd SonarHoy
 
-2. Crear e ingresar al entorno virtual:
-pipenv shell
-
-3. Instalar dependencias:
-pipenv install
-
-4. Configurar variables de entorno:
-cp .env.example .env
-
-5. Migrar la base de datos:
-python manage.py migrate
-
-6. Ejecutar el servidor:
-python manage.py runserver
-
-7. Acceder a la app en http://127.0.0.1:8000/.
-
----
-
-👥 Participantes
+## 👥 Participantes
 
 Nombre                        | Rol                                                                                                            | GitHub
 -------------------------------|--------------------------------                                                                               |-------------------------------
@@ -111,12 +91,44 @@ Ezequiel Ávalos                | Desarrollador Frontend (post)                 
 
 ---
 
-🌐 Contacto
+## 🌐 Contacto
 
 - Instagram: https://www.instagram.com/carpinchosg2/
 
 ¡Gracias por contribuir a SonarHoy! 🚀
 
+⚡ Instalación
+
+1. Clonar el repositorio:
+```sh
+git clone https://github.com/AlexiasXro/SonarHoy.git
+```
+```sh
+cd SonarHoy
+```
+2. Crear e ingresar al entorno virtual:
+```sh
+pipenv shell
+```
+3. Instalar dependencias:
+```sh
+pipenv install
+```
+4. Configurar variables de entorno:
+```sh
+cp .env.example .env
+```
+5. Migrar la base de datos:
+```sh
+python manage.py migrate
+```
+6. Ejecutar el servidor:
+```sh
+python manage.py runserver
+```
+7. Acceder a la app en http://127.0.0.1:8000/.
+
+---
 
 ## 📚 Documentación de Plantillas
 
