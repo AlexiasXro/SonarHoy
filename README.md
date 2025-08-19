@@ -44,6 +44,35 @@ SonarHoy/
 └─ manage.py
 
 ---
+# Usuarios del Sistema
+
+El sistema cuenta con los siguientes usuarios preconfigurados:
+
+| Usuario                      | Contraseña  | Rol/Grupo      | 
+|------------------------------|-------------|----------------|
+| Name-Miembro                 | facil123    | Miembros       |
+| Name-Colaborador             | facil123    | Colaboradores  | 
+| Super-duper-master-capo      | facil123    | Admin          | 
+| *****                        | ******      | Admin-Django   | 
+
+## Notas sobre permisos
+
+- **Miembros**:  
+  - Solo usuarios registrados.  
+  - Pueden interactuar con contenido (dar "Me gusta", comentar).  
+  - No pueden crear, editar ni eliminar posts.  
+
+- **Colaboradores**:  
+  - Usuarios con permisos extendidos para editar contenido.  
+  - Pueden editar posts asignados según reglas definidas por el Admin.  
+  - No tienen permisos para administrar usuarios ni cambiar configuraciones del sistema.  
+
+- **Admin / Superusuario**:  
+  - Control total sobre el sistema.  
+  - Puede crear, editar y eliminar cualquier post o comentario.  
+  - Puede gestionar todos los usuarios y grupos.  
+  - Acceso a configuraciones críticas y permisos del sistema.
+---
 
 ⚡ Instalación
 
