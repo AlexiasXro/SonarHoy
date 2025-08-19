@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
 <div class="relative">
@@ -7,73 +8,94 @@
   <h1 class="w-full text-center text-3xl md:text-4xl font-base text-indigo-600 mb-8 drop-shadow select-none">
     {{ title }}
   </h1>
-<div class="relative flex flex-col items-center gap-8 mt-16 md:flex-row md:justify-center md:items-start">
-  <!-- Perfil -->
- 
-  <div class="w-full max-w-md bg-white dark:bg-gray-800 border-2 border-indigo-600 rounded-xl shadow-lg p-6 text-center">
-    <h2 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">¡Hola, {{ request.user.username }}!</h2>
 
-    <div class="w-32 h-32 mx-auto mb-6 relative">
+  <div class="relative flex flex-col items-center gap-8 mt-16 md:flex-row md:justify-center md:items-start">
 
-      <img src="{{ comentario.author.profile.avatar.url }}?{{ comentario.author.profile.updated_at.timestamp }}" alt="Avatar"
-        class="rounded-full w-32 h-32 object-cover mx-auto border-2 border-indigo-600 shadow select-none" />
-    </div>
+    <!-- Perfil -->
+    <div class="w-full max-w-md bg-gray-200 dark:bg-gray-800 border-2 border-indigo-600 rounded-xl shadow-lg p-6 text-center">
+      <h2 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">¡Hola, {{ request.user.username }}!</h2>
 
-    <!-- Grupos del usuario -->
-     <div class="flex flex-wrap justify-center items-center gap-2 mb-2">
+      <img 
+  src="{{ request.user.profile.avatar.url }}?{{ request.user.profile.updated_at.timestamp }}" 
+  alt="Avatar"
+  class="rounded-full w-32 h-32 object-cover mx-auto border-2 border-indigo-600 shadow select-none"
+  onerror="this.onerror=null;this.src='{% static 'icons/user-profile.png' %}';"
+/>
 
-       {% for group in user.groups.all %}
-       <span class="badge text-indigo-500 font-semibold p-4 ">{{ group.name }}</span>
-       {% empty %}
-       <span class="badge text-red-600 p-4">Sin grupo</span>
-       {% endfor %}
-     </div>
-
-    
-    <button id="toggle-edit-profile"
-      class="bg-indigo-700 text-white font-semibold  mb-4 py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg w-full">
-      Editar perfil
-    </button>
-
-    <form action="{% url 'user:password_change' %}" method="get" class="mb-4">
-      <button type="submit"
-        class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg w-full">
-        Cambiar contraseña
-      </button>
-    </form>
-
+      <div class="text-left mb-4">
+    <p><span class="font-semibold text-gray-600 dark:text-gray-400">Nombre:</span> {{ request.user.first_name }}</p>
+    <p><span class="font-semibold text-gray-600 dark:text-gray-400">Apellido:</span> {{ request.user.last_name }}</p>
+    <p><span class="font-semibold text-gray-600 dark:text-gray-400">Correo:</span> {{ request.user.email }}</p>
   </div>
 
-  <!-- Formulario de edición -->
-  <div id="edit-profile-form"
-       class="absolute top-0 left-0 w-full md:static md:w-auto max-w-md bg-white dark:bg-gray-800 border-2 border-indigo-600 rounded-xl shadow-lg p-6 text-center hidden z-10">
-    
-    <!-- Volver atrás (solo móvil) -->
-    <div class="absolute top-4 left-4 text-indigo-600 font-semibold cursor-pointer hover:underline z-20 block md:hidden" id="back-text">
-      ← Volver atrás
-    </div>
-
-    <form action="." method="post" enctype="multipart/form-data" class="mt-8">
-      {% csrf_token %}
-
-      <!-- Avatar editable -->
-      <div class="w-32 h-32 mx-auto mb-2 relative cursor-pointer" id="avatar-container">
-        <img id="avatar-image" src="{{ request.user.profile.avatar.url }}" alt="Avatar"
-          class="rounded-full w-32 h-32 object-cover mx-auto border-2 border-indigo-600 shadow transition hover:ring-4 hover:ring-indigo-400" />
+      <!-- Grupos del usuario -->
+      <div class="flex flex-wrap justify-center items-center gap-2 mb-2">
+        {% for group in user.groups.all %}
+          <span class="badge text-indigo-500 font-semibold p-4">{{ group.name }}</span>
+        {% empty %}
+          <span class="badge text-red-600 p-4">Sin grupo</span>
+        {% endfor %}
       </div>
 
-      <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">Haz clic en la imagen para cambiar tu avatar</p>
+      <button id="toggle-edit-profile"
+              class="bg-indigo-700 text-white font-semibold mb-4 py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg w-full">
+        Editar perfil
+      </button>
 
-      <!-- Input oculto para avatar -->
-      <input type="file" name="{{ avatar_form.avatar.name }}" id="id_avatar" class="hidden" />
+      <form action="{% url 'user:password_change' %}" method="get" class="mb-4">
+        <button type="submit"
+                class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer text-lg w-full">
+          Cambiar contraseña
+        </button>
+      </form>
+    </div>
 
-      {{ form.as_p }}
+    <!-- Formulario de edición -->
+    <div id="edit-profile-form"
+         class="absolute top-0 left-0 w-full md:static md:w-auto max-w-md bg-gray-200 dark:bg-gray-800 border-2 border-indigo-600 rounded-xl shadow-lg p-6 text-center hidden z-10">
 
-      <input type="submit" value="Guardar cambios"
-        class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer mt-4 w-full text-lg" />
-    </form>
+      <!-- Volver atrás (solo móvil) -->
+      <div class="absolute top-4 left-4 text-indigo-600 font-semibold cursor-pointer hover:underline z-20 block md:hidden" id="back-text">
+        ← Volver atrás
+      </div>
+
+      <form action="." method="post" enctype="multipart/form-data" class="mt-8">
+        {% csrf_token %}
+
+        <!-- Avatar editable -->
+        <div class="w-32 h-32 mx-auto mb-2 relative cursor-pointer" id="avatar-container">
+          <img id="avatar-image" src="{{ request.user.profile.avatar.url }}" alt="Avatar"
+               class="rounded-full w-32 h-32 object-cover mx-auto border-2 border-indigo-600 shadow transition hover:ring-4 hover:ring-indigo-400" />
+        </div>
+
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">Haz clic en la imagen para cambiar tu avatar</p>
+        <input type="file" name="avatar" id="id_avatar" class="hidden" />
+
+        <!-- Campos de usuario -->
+        <div class="mb-4">
+          <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-1">Nombre</label>
+          <input type="text" name="first_name" value="{{ request.user.first_name }}"
+                 class="w-full p-2 border rounded text-gray-800 dark:text-gray-100 bg-gray-50 dark:bg-gray-700" />
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-1">Apellido</label>
+          <input type="text" name="last_name" value="{{ request.user.last_name }}"
+                 class="w-full p-2 border rounded text-gray-800 dark:text-gray-100 bg-gray-50 dark:bg-gray-700" />
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 dark:text-gray-300 font-semibold mb-1">Correo electrónico</label>
+          <input type="email" name="email" value="{{ request.user.email }}"
+                 class="w-full p-2 border rounded text-gray-800 dark:text-gray-100 bg-gray-50 dark:bg-gray-700" />
+        </div>
+
+        <input type="submit" value="Guardar cambios"
+               class="bg-indigo-700 text-white font-semibold py-2 px-6 rounded hover:bg-indigo-900 transition-colors cursor-pointer mt-4 w-full text-lg" />
+      </form>
+    </div>
+
   </div>
-</div>
 </div>
 
 <script>
@@ -94,10 +116,9 @@
     toggleButton.textContent = 'Editar perfil';
   });
 
-  // Avatar editable solo dentro del formulario
-  const avatarImage = document.getElementById('avatar-image');
-  
+  // Avatar editable con preview
   const avatarContainer = document.getElementById('avatar-container');
+  const avatarImage = document.getElementById('avatar-image');
   const fileInput = document.getElementById('id_avatar');
 
   avatarContainer.addEventListener('click', () => {

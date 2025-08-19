@@ -78,7 +78,7 @@
     <div class="flex items-center gap-2 flex-wrap justify-center">
       
       <!-- Tipo de usuario  -->
-      <p class="text-indigo-300 font-light ">{{ user.user_type }}</p>
+      <p class="text-indigo-300 dark:text-indigo-900 ">{{ user.user_type }}</p>
 
       {% if user.is_authenticated %}
         {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
@@ -91,7 +91,7 @@
         {% endif %}
 
         {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'profile' %}
-          <a href="{% url 'user:profile' %}" class="text-sm bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-900">Mi Perfil</a>
+          <a href="{% url 'user:profile' %}" class="bg-indigo-700 hover:bg-indigo-900 dark:bg-indigo-900 dark:hover:bg-indigo-600 text-sm  text-white  py-1 px-2 rounded-md   ">Mi Perfil</a>
         {% elif request.resolver_match.url_name == 'profile' %}
           <!-- <a href="{% url 'user:logout' %}" class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-900">Cerrar sesión</a> -->
           <form action="{% url 'user:logout' %}" method="post">
