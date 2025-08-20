@@ -54,7 +54,7 @@ El sistema cuenta con los siguientes usuarios preconfigurados:
 |------------------------------|-------------|----------------|
 | Name-Miembro                 | facil123    | Miembros       |
 | NAME-Colaborador             | facil123    | Colaboradores  | 
-| Super-duper-master-capo      | facil123    | Admin          | (sin función)
+| Super-duper-master-capo      | facil123    | Admin Desabilitado         | 
 | *****                        | ******      | Admin-Django   | 
 
 
@@ -90,6 +90,21 @@ Martina Kendrick               | Desarrolladora Backend (post)                  
 Ezequiel Ávalos                | Desarrollador Frontend (post)                                                                                 | https://github.com/EzeAvalos25
 
 ---
+
+## Metodología de trabajo
+
+El desarrollo del blog de música se realizó siguiendo una **metodología ágil** adaptada al proyecto:
+
+- **Iteraciones cortas**: dividimos el trabajo en fases semanales para avanzar de forma ordenada.  
+- **Gestión de tareas con Trello**: usamos un tablero con columnas (*Pendiente, En progreso, Finalizado*) para visualizar el estado de cada tarea.  
+ ->**[Trello](https://trello.com/invite/b/68784f610c86a286acf0b565/ATTI88e8fbebd9a461d759dad1971afc152959885C1A/proyecto-final-sonar-hoy)**
+- **Priorización de funcionalidades**: primero se implementó la estructura básica del blog y luego se agregaron mejoras de diseño e interactividad.  
+- **Pruebas constantes**: cada nueva funcionalidad se probó en un entorno local antes de integrarse al proyecto.  
+- **Revisión y mejoras**: al final de cada fase revisamos el código, el diseño y la experiencia de usuario.
+
+  
+   
+
 
 ## 🌐 Contacto
 
