@@ -7,23 +7,29 @@
 <div class="flex gap-2 mb-4">   <h2 class="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">
     Orden de publicaciones: 
   </h2>
-  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=recent"
-    class="px-4 py-2 rounded {% if selected_order == 'recent' %}bg-indigo-700 text-white{% else %}bg-indigo-400{% endif %}">
+  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}
+  {% endif %}?order=recent"
+    class="px-4 py-2 rounded 
+    {% if selected_order == 'recent' %}bg-indigo-700 text-white
+    {% else %}bg-indigo-400 text-white
+    {% endif %}">
     Más recientes
   </a>
 
   <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=oldest"
-    class="px-4 py-2 rounded {% if selected_order == 'oldest' %}bg-indigo-700 text-white{% else %}bg-indigo-400{% endif %}">
+    class="px-4 py-2 rounded 
+    {% if selected_order == 'oldest' %}bg-indigo-700 text-white
+    {% else %}bg-indigo-400 text-white{% endif %}">
     Más antiguos
   </a>
 
   <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=az"
-    class="px-4 py-2 rounded {% if selected_order == 'az' %}bg-indigo-700 text-white{% else %}bg-indigo-400{% endif %}">
+    class="px-4 py-2 rounded {% if selected_order == 'az' %}bg-indigo-700 text-white{% else %}bg-indigo-400 text-white{% endif %}">
     A-Z
   </a>
 
   <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=za"
-    class="px-4 py-2 rounded {% if selected_order == 'za' %}bg-indigo-700 text-white{% else %}bg-indigo-400{% endif %}">
+    class="px-4 py-2 rounded {% if selected_order == 'za' %}bg-indigo-700 text-white{% else %}bg-indigo-400 text-white{% endif %}">
     Z-A
   </a>
 </div>
