@@ -8,7 +8,7 @@
 <meta property="og:description" content="{{ post.excerpt|truncatewords:25 }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
-<meta property="og:image" content="{{ post.image.url|default:'/static/post/default/post_default.png' }}">
+<meta property="og:image" content="{{ post.static.url|default:'/static/post/default/post_default.png' }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ post.title }} | SonarHoy">
 <meta name="twitter:description" content="{{ post.excerpt|truncatewords:25 }}">
@@ -58,7 +58,7 @@
     Publicado el {{ post.created_at|date:"d M Y" }} por {{ post.author }}
   </p>
 
-  {% if post.image %}
+  {% if post.image %} 
   <img src="{{ post.image.url }}?{{ post.updated_at.timestamp }}" class="w-full max-h-64 object-cover rounded mb-4" />
   {% else %}
   <img src="{% static 'post_images/post_default.jpg' %}" alt="Imagen por defecto" class="mb-4">

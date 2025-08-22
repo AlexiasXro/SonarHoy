@@ -1,9 +1,39 @@
 {% extends 'layout.html' %}
-
-
 {% load static %}
 
 {% block content %}
+
+<!-- BOTONES DE ORDEN -->
+<div class="flex gap-2 mb-4">   
+  <h2 class="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">
+    Orden de publicaciones: 
+  </h2>
+ 
+  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=recent"
+   class="px-4 py-2 rounded 
+   {% if selected_order == 'recent' %}bg-indigo-700 text-white
+   {% else %}bg-indigo-400 text-white
+   {% endif %}">
+   Más recientes
+</a>
+
+  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=oldest"
+    class="px-4 py-2 rounded 
+    {% if selected_order == 'oldest' %}bg-indigo-700 text-white
+    {% else %}bg-indigo-400 text-white{% endif %}">
+    Más antiguos
+  </a>
+
+  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=az"
+    class="px-4 py-2 rounded {% if selected_order == 'az' %}bg-indigo-700 text-white{% else %}bg-indigo-400 text-white{% endif %}">
+    A-Z
+  </a>
+
+  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=za"
+    class="px-4 py-2 rounded {% if selected_order == 'za' %}bg-indigo-700 text-white{% else %}bg-indigo-400 text-white{% endif %}">
+    Z-A
+  </a>
+</div>
 
 
 <div class="flex flex-wrap items-center gap-4 mb-2">
@@ -36,13 +66,15 @@
 
 {% if posts %}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
     {% for post in posts %}
       <div class="bg-white dark:bg-gray-900 rounded shadow p-4 flex flex-col gap-4">
+
         {% if post.image %}
           <img src="{{ post.image.url }}" alt="Imagen del post" class="w-full max-h-64 object-cover rounded">
         {% else %}
           <img src="{% static 'post_images/post_default.jpg' %}" alt="Imagen por defecto" class="w-full max-h-64 object-cover rounded">
-        {% endif %}
+        {% endif %} 
 
         <h2 class="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">{{ post.title }}</h2>
         <p class="text-sm text-indigo-400 dark:text-indigo-700">{{ post.created_at|date:"d M Y" }} por {{ post.author }}</p>
@@ -55,10 +87,45 @@
       </div>
     {% endfor %}
   </div>
+
 {% else %}
   <div class="text-center text-gray-600 dark:text-gray-300 py-12">
     <h2 class="text-xl font-semibold mb-2">📭 No hay posts en la categoría{% if selected_category %} "{{ selected_category }}"{% endif %}</h2>
     <p class="text-base">Pronto habrá contenido aquí. ¡Volvé más tarde o explorá otra categoría!</p>
+  </div>
+{% endif %}
+<!-- Controles de paginación -->
+{% if is_paginated %}
+  <div class="flex justify-center items-center mt-6 gap-2">
+
+    <!-- Botón página anterior -->
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}{% if selected_order %}&order={{ selected_order }}{% endif %}"
+        class="px-3 py-1 bg-indigo-700 text-white rounded hover:bg-indigo-900">
+        Anterior
+      </a>
+    {% endif %}
+
+    <!-- Números de página -->
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <span class="px-3 py-1 bg-indigo-500 text-white rounded">{{ num }}</span>
+      {% else %}
+        <a href="?page={{ num }}{% if selected_order %}&order={{ selected_order }}{% endif %}"
+          class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-indigo-300">
+          {{ num }}
+        </a>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Botón página siguiente -->
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}{% if selected_order %}&order={{ selected_order }}{% endif %}"
+        class="px-3 py-1 bg-indigo-700 text-white rounded hover:bg-indigo-900">
+        Siguiente
+      </a>
+    {% endif %}
+
   </div>
 {% endif %}
 

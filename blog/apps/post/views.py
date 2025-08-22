@@ -7,9 +7,9 @@ from .forms import CommentForm
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.db.models.functions import Lower
 import uuid
 #blog\apps\post\views.py
-from django.shortcuts import render
 
 def handler403(request, exception=None):
     return render(request, "Alerta/403.html", status=403)
@@ -18,26 +18,37 @@ class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
     paginate_by = 6
 
-    # Filtrar publicaciones por categoría
     def get_queryset(self):
         queryset = super().get_queryset()
-        category_slug = self.kwargs.get('category_slug')
+
+        # 1. Filtrar por categoría (si existe en la URL)
+        category_slug = self.kwargs.get("category_slug")
         if category_slug:
             category = get_object_or_404(Category, name=category_slug)
             queryset = queryset.filter(category=category)
+
+        # 2. Ordenar según query param ?order=...
+        order = self.request.GET.get("order", "recent")
+
+        if order == "az":
+            queryset = queryset.order_by(Lower("title"))
+        elif order == "za":
+            queryset = queryset.order_by(Lower("title").desc())
+        elif order == "oldest":
+            queryset = queryset.order_by("created_at")
+        else: 
+            queryset = queryset.order_by("-created_at")
+
         return queryset
 
-    # Anular el método get_context_data para incluir categorías
-    # y la categoría seleccionada en el contexto
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        context['selected_category'] = self.kwargs.get('category_slug')
+        context["categories"] = Category.objects.all()
+        context["selected_category"] = self.kwargs.get("category_slug")
+        context["selected_order"] = self.request.GET.get("order", "recent")
         return context
-
 
 class PostDetailView(FormMixin, DetailView):
     model = Post
@@ -61,7 +72,7 @@ class PostDetailView(FormMixin, DetailView):
         self.object = self.get_object()
 
     
-       # Eliminar comentario (soft delete)
+    # Eliminar comentario (soft delete)
         delete_comment_id = request.POST.get('delete_comment_id')
         if delete_comment_id:
             comment = get_object_or_404(Comment, pk=uuid.UUID(delete_comment_id))
@@ -102,7 +113,6 @@ class PostDetailView(FormMixin, DetailView):
 def toggle_like(request, slug):
     post = get_object_or_404(Post, slug=slug)
 
-   
     if request.user in post.likes.all():
         post.likes.remove(request.user)
     else:
@@ -124,14 +134,11 @@ class PostCreateView(LoginRequiredMixin,PermissionRequiredMixin, CreateView):
     def form_valid(self, post_form):
         post_form.instance.author = self.request.user
         return super().form_valid(post_form)
-   
-    
 
 # -------------------
-# ACTUALIZAR POST → solo autor o admin
+# ACTUALIZAR POST → solo colaboradores o admin
 # -------------------
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-   
     model = Post
     fields = ['title', 'content','image', 'category']
     template_name = 'post_update.html'
@@ -146,8 +153,6 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author or self.request.user.has_perm('post.change_post')
-
-
 
 
 #ELIMINAR-------------
