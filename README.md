@@ -2,6 +2,7 @@
 
 ### SonarHoy es una plataforma web de noticias y agendas desarrollada en Django ,MySQL, Tailwind CSS, que permite publicar contenido, interactuar mediante comentarios y "likes", y gestionar perfiles de usuario de forma segura y moderna.
 
+Pagina en Vivo: 🌐[SonarHoy](https://deidad2028.pythonanywhere.com/) 
 ---
 
 ## 🚀 Características

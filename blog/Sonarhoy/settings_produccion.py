@@ -10,7 +10,7 @@ if SECRET_KEY is None:
     raise ValueError("The SECRET_KEY environment variable is not set.")
 
 # TODO: Agrega aquí tus dominios permitidos
-ALLOWED_HOSTS = ['127.0.0.1', ' deidad2028.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'deidad2028.pythonanywhere.com']
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
