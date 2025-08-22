@@ -46,6 +46,8 @@ SonarHoy/
 ```
 
 ---
+
+
 ##   Usuarios del Sistema
 
 El sistema cuenta con los siguientes usuarios preconfigurados:
@@ -54,7 +56,6 @@ El sistema cuenta con los siguientes usuarios preconfigurados:
 |------------------------------|-------------|----------------|
 | Name-Miembro                 | facil123    | Miembros       |
 | NAME-Colaborador             | facil123    | Colaboradores  | 
-| Super-duper-master-capo      | facil123    | Admin Desabilitado         | 
 | *****                        | ******      | Admin-Django   | 
 
 
@@ -81,13 +82,13 @@ El sistema cuenta con los siguientes usuarios preconfigurados:
 
 ## 👥 Participantes
 
-Nombre                        | Rol                                                                                                            | GitHub
--------------------------------|--------------------------------                                                                               |-------------------------------
-Alejandra Romina Cáceres       | Repo principal en GitHub, definición y desarrollo de DER, Backend (user y layout), Digital Project Manager    | https://github.com/AlexiasXro
-Flor Azcoaga                   | Definición de criterios de aceptación, Backend y Frontend (home, agenda, contacto y quienes somos), Diseño UI | https://github.com/xikiotaka
-Nahuel Storace                 | Desarrollador Frontend (user, header, footer, layout)                                                         | https://github.com/Nahuel-srce
-Martina Kendrick               | Desarrolladora Backend (post)                                                                                 | https://github.com/MartinaKndk
-Ezequiel Ávalos                | Desarrollador Frontend (post)                                                                                 | https://github.com/EzeAvalos25
+| Nombre                       | Rol Técnico                                                                                                                                                                                                                                                                              | GitHub                                        |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| **Alejandra Romina Cáceres** | **Project Manager** · Gestión de repositorio en GitHub · Análisis y diseño de modelo DER · Arquitectura de base de datos · Desarrollo Backend (CRUD User-Profile) · **Deploy y mantenimiento en PythonAnywhere** · Actualización de roles y permisos dentro de la lógica del sistema | [AlexiasXro](https://github.com/AlexiasXro)   |
+| **Flor Azcoaga**             | **Scrum Master & UI/UX Designer** · Definición de criterios de aceptación · Desarrollo Backend · Implementación Frontend (Home, Agenda, Contacto, Quiénes Somos) · Diseño de interfaces y prototipado en Figma                                                                           | [xikiotaka](https://github.com/xikiotaka)     |
+| **Nahuel Storace**           | **Frontend Developer** · Implementación de componentes de usuario · Desarrollo de estructura principal (Header, Footer, Layout) · Integración de vistas                                                                                                                                  | [Nahuel-srce](https://github.com/Nahuel-srce) |
+| **Martina Kendrick**         | **Backend Developer** · Desarrollo de CRUD avanzado · Implementación de Soft Delete · Filtros  optimizados (Posts y Comentarios)                                                                                                                                                | [MartinaKndk](https://github.com/MartinaKndk) |
+| **Ezequiel Ávalos**          | **Frontend Developer** · Desarrollo de módulo de Posts y sistema de Comentarios · Integración con lógica backend                                                                                                                                                                         | [EzeAvalos25](https://github.com/EzeAvalos25) |
 
 ---
 
@@ -102,7 +103,10 @@ El desarrollo del blog de música se realizó siguiendo una **metodología ágil
 - **Pruebas constantes**: cada nueva funcionalidad se probó en un entorno local antes de integrarse al proyecto.  
 - **Revisión y mejoras**: al final de cada fase revisamos el código, el diseño y la experiencia de usuario.
 
-  
+##  Maquetado 
+La propuesta visual fue maquetada en Figma por Flor Azcoaga, quien definió la línea estética general, asegurando una experiencia moderna y accesible para los usuarios.
+
+[🎨Pagina de Figma](https://www.figma.com/design/5eipHrMoFZxgjadOZAjGky/Blog--Sonar-Hoy?node-id=0-1)  
    
 
 
@@ -110,7 +114,7 @@ El desarrollo del blog de música se realizó siguiendo una **metodología ágil
 
 - Instagram: https://www.instagram.com/carpinchosg2/
 
-¡Gracias por contribuir a SonarHoy! 🚀
+# ¡Gracias por contribuir a SonarHoy! 🚀
 
 ⚡ Instalación
 
