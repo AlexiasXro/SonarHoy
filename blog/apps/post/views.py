@@ -37,9 +37,9 @@ class PostListView(ListView):
         elif order == "za":
             queryset = queryset.order_by(Lower("title").desc())
         elif order == "más antiguos":
-            queryset = queryset.order_by("created_at")
-        else: 
             queryset = queryset.order_by("-created_at")
+        else: 
+            queryset = queryset.order_by("created_at")
 
         return queryset
 
