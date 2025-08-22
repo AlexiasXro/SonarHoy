@@ -136,7 +136,7 @@ class PostCreateView(LoginRequiredMixin,PermissionRequiredMixin, CreateView):
         return super().form_valid(post_form)
 
 # -------------------
-# ACTUALIZAR POST → solo autor o admin
+# ACTUALIZAR POST → solo colaboradores o admin
 # -------------------
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
