@@ -4,36 +4,42 @@
 {% block content %}
 
 <!-- BOTONES DE ORDEN -->
-<div class="flex gap-2 mb-4">   
-  <h2 class="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">
-    Orden de publicaciones: 
+<div class="flex flex-col md:flex-row md:items-center gap-2 mb-4">
+  <h2 class="text-lg md:text-2xl font-semibold text-indigo-700 dark:text-indigo-300 mb-2 md:mb-0">
+    Orden de publicaciones:
   </h2>
- 
-  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=recent"
-   class="px-4 py-2 rounded 
-   {% if selected_order == 'recent' %}bg-indigo-700 text-white
-   {% else %}bg-indigo-400 text-white
-   {% endif %}">
-   Más recientes
-</a>
 
-  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=oldest"
-    class="px-4 py-2 rounded 
-    {% if selected_order == 'oldest' %}bg-indigo-700 text-white
-    {% else %}bg-indigo-400 text-white{% endif %}">
-    Más antiguos
-  </a>
+  <div class="flex flex-wrap gap-2">
+    <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=recent"
+      class="px-3 md:px-4 py-2 rounded text-sm md:text-base 
+      {% if selected_order == 'recent' %}bg-indigo-700 text-white
+      {% else %}bg-indigo-400 text-white{% endif %}">
+      Más recientes
+    </a>
 
-  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=az"
-    class="px-4 py-2 rounded {% if selected_order == 'az' %}bg-indigo-700 text-white{% else %}bg-indigo-400 text-white{% endif %}">
-    A-Z
-  </a>
+    <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=oldest"
+      class="px-3 md:px-4 py-2 rounded text-sm md:text-base 
+      {% if selected_order == 'oldest' %}bg-indigo-700 text-white
+      {% else %}bg-indigo-400 text-white{% endif %}">
+      Más antiguos
+    </a>
 
-  <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=za"
-    class="px-4 py-2 rounded {% if selected_order == 'za' %}bg-indigo-700 text-white{% else %}bg-indigo-400 text-white{% endif %}">
-    Z-A
-  </a>
+    <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=az"
+      class="px-3 md:px-4 py-2 rounded text-sm md:text-base 
+      {% if selected_order == 'az' %}bg-indigo-700 text-white
+      {% else %}bg-indigo-400 text-white{% endif %}">
+      A-Z
+    </a>
+
+    <a href="{% if selected_category %}{% url 'post_list_by_category' selected_category %}{% else %}{% url 'post_list' %}{% endif %}?order=za"
+      class="px-3 md:px-4 py-2 rounded text-sm md:text-base 
+      {% if selected_order == 'za' %}bg-indigo-700 text-white
+      {% else %}bg-indigo-400 text-white{% endif %}">
+      Z-A
+    </a>
+  </div>
 </div>
+
 
 
 <div class="flex flex-wrap items-center gap-4 mb-2">
