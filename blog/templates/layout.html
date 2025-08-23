@@ -20,10 +20,9 @@
     <link rel="canonical" href="{{ request.build_absolute_uri|default:'' }}">
   {% endblock %}
 
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon.png' %}">
-<link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon.png' %}">
-<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png">
-  <title>{{ title|default:"SonarHoy" }}</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+  
+<title>{{ title|default:"SonarHoy" }}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode: 'class' }
